@@ -1,0 +1,10 @@
+div.smallScreen{
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+    div.smallScreen{
+        display: block;
+    }
+}
+

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="ru">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../css/homePage.css">
+    <link rel="stylesheet" href="../css/cityPage.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
+
+    <title>Рейкъявик</title>
+  </head>
+
+  <body>
+            <!-- Navigation -->
+            <nav class="navbar navbar-expand-xl navbar-light bg-light">
+        
+              <div>
+                <img src="../images/icelandFlag.png" width="70" height="35">
+                <a href="homePage.html"><button type="button" class="btn btn-link shadow-none">ПУТЕВОДИТЕЛЬ<br>ПО ИСЛАНДИИ</button></a>
+              </div>
+              
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+      
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Левая часть нав.бара -->
+                <ul class="navbar-nav mr-auto"></ul>
+      
+                <!-- Правая часть нав.бара -->
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="homePage.html"><i class="fas fa-warehouse mr-2"></i>Обзор<span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-city mr-2"></i>Города</a>
+                    <div class="dropdown-menu adaptiveSize">
+                      <button class="dropdown-item" type="button"><a class="linkClass" href="cityPage.html">Рейкъявик</a></button>
+                      <button class="dropdown-item" type="button"><a>Коупавогюр</a></button>
+                      <button class="dropdown-item" type="button"><a>Хабнарфьордюр</a></button>
+                      <button class="dropdown-item" type="button"><a>Акюрейри</a></button>
+                      <button class="dropdown-item" type="button"><a>Кеблавик</a></button>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="attractionsPage.html"><i class="fas fa-tram mr-2"></i>Что посмотреть</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="kitchenPage.html"><i class="fas fa-utensils mr-2"></i>Кухня</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="tripPage.html"><i class="fas fa-plane mr-2"></i>Как добраться</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="housingPage.html"><i class="fas fa-igloo mr-2"></i>Где жить</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="#exampleModal" data-toggle="modal"><i class="fas fa-door-open mr-2"></i>Войти</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+      
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+      
+                  <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel" >Вход в систему</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+      
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите Email">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Пароль</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите пароль">
+                      </div>
+      
+                      <div class="row" style="font-weight: normal; text-transform: initial; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">
+                        <div class="custom-control custom-radio col">
+                          <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                          <label class="custom-control-label" for="customRadio1">Запомнить в системе</label>
+                        </div>
+      
+                        <div class="col">
+                          <a class="linkClass" href="#" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">
+                            Зарегестрироваться
+                          </a>
+                        </div>
+                      </div>
+      
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Отправить</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+      <br>
+      <p></p>
+      <p style="margin-left: 20%; font-size: 19pt; font-weight: 900;">Рейкъявик</p>
+      <div class="card" style="width: 60%; ">
+        <img class="contentClass" src="../images/resultPhotos/icelandCityPage-1.jpg" alt="">
+      </div>
+      <br>
+      <p class="lifehacks" style="margin-left: 20%; margin-right: 20%;"><i class="fas fa-paperclip mr-2"></i>Полезные лайфхаки:</p>
+      <div class="container" style="width: 500px;">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2"><a class="linkClass" href="#onHistory">История</a></div>
+          <div class="col-md-4 col-md-offset-2"><a class="linkClass" href="#onGeography">География</a></div>
+          <div class="col-md-4 col-md-offset-2"><a class="linkClass" href="#onClimate">Климат</a></div>
+        </div>
+        <p></p>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2"><a class="linkClass" href="#onBeach">Пляж</a></div>
+          <div class="col-md-4 col-md-offset-2"><a class="linkClass" href="#onBuying">Покупки</a></div>
+          <div class="col-md-4 col-md-offset-2"><a class="linkClass" href="#onTransport">Транспорт</a></div>
+        </div>
+      </div>
+
+      <!-- Раздел: начало -->
+      <br>
+      <a name="onHistory"></a>
+      <p class="lifehacks" style="margin-left: 20%; margin-right: 20%;"><i class="fas fa-monument mr-2"></i>История</p>
+      <!-- Для больших экранов -->
+      <div class="row applicationRow">
+        <div class="col-lg-6 py-2">
+            <div class="card card-body h-100" style="border: none;">
+                <p class="applicationP"><a><i class="fas fa-monument mr-2"></i></a>Исландия была заселена норвежскими и кельтскими иммигрантами в течение конца IX и начала X веков. Согласно средневековой «Книге о заселении Исландии» (исл. Landnámabók), Ингольф Арнарсон, первый исландский поселенец, построил в 874 году свою ферму на полуострове, где сейчас расположен Рейкьявик. Место было названо Reykjavík («Дымная бухта») из-за столбов пара, которые поднимались от горячих источников и производили глубокое впечатление на поселенцев.</p>
+                <p class="applicationP"><a><i class="fas fa-monument mr-2"></i><img class="right rounded-circle" src="../images/resultPhotos/icelandCityPage-1sub.jpg" style="width: 10vw; height: 10vw;"></a>Много веков спустя, около середины XVIII века, маленький городок начал вырастать возле фермы Рейкьявик благодаря королевскому казначею Скули Магнуссону, известному как «отец Рейкьявика», который основал шерстяные мастерские в Рейкьявике в рамках своей деятельности по модернизации исландской экономики. Это послужило толчком к началу развития Рейкьявика как города. Статус города Рейкьявик получил 18 августа 1786 года.</p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 py-2">
+          <div class="card card-body h-100" style="border: none;">
+              <p class="applicationP"><a><i class="fas fa-monument mr-2"></i><img class="right rounded-circle" src="../images/resultPhotos/icelandCityPage-2sub.jpg" style="width: 10vw; height: 10vw;"></a>После установления власти норвежских королей над островом, Рейкьявик становится центром сбора дани и налогов, а также важным центром торговли с Норвегией, Англией и Ганзой. С ускорением экономического прогресса в XX веке рос и Рейкьявик, но особенно быстрое развитие он получил во второй половине XX века.</p>
+              <p class="applicationP"><a><i class="fas fa-monument mr-2"></i></a>Во время Второй мировой войны Рейкьявик приобрёл стратегически важное значение для американских и английских судов, которые несли патрульную службу в водах Северной Атлантики. 10 мая 1940 года, после того как Германия оккупировала Данию и Норвегию, британские войска высадились в Рейкьявике в ходе операции «Форк». Они не встретили никакого сопротивления. В декабре 1943 г. закончился срок действия договора о личной унии Дании и Исландии, заключённого в 1918 г. 17 июня 1944 г. Исландия была провозглашена независимой республикой, и её столицей официально был признан город Рейкьявик.</p>
+          </div>
+        </div>
+    </div>
+
+    <!-- Для малых экранов -->
+    <div class="smallScreen" style="margin-left: 20%; margin-right: 20%;">
+      <div>
+        <br>
+        <p class="applicationP"><a><i class="fas fa-monument mr-2"></i></a>Исландия была заселена норвежскими и кельтскими иммигрантами в течение конца IX и начала X веков. Согласно средневековой «Книге о заселении Исландии» (исл. Landnámabók), Ингольф Арнарсон, первый исландский поселенец, построил в 874 году свою ферму на полуострове, где сейчас расположен Рейкьявик. Место было названо Reykjavík («Дымная бухта») из-за столбов пара, которые поднимались от горячих источников и производили глубокое впечатление на поселенцев.</p>
+        <p class="applicationP"><a><i class="fas fa-monument mr-2"></i><img class="right rounded-circle" src="../images/resultPhotos/icelandCityPage-1sub.jpg" style="width: 10vw; height: 10vw;"></a>Много веков спустя, около середины XVIII века, маленький городок начал вырастать возле фермы Рейкьявик благодаря королевскому казначею Скули Магнуссону, известному как «отец Рейкьявика», который основал шерстяные мастерские в Рейкьявике в рамках своей деятельности по модернизации исландской экономики. Это послужило толчком к началу развития Рейкьявика как города. Статус города Рейкьявик получил 18 августа 1786 года.</p>
+        <p class="applicationP"><a><i class="fas fa-monument mr-2"></i><img class="right rounded-circle" src="../images/resultPhotos/icelandCityPage-2sub.jpg" style="width: 10vw; height: 10vw;"></a>После установления власти норвежских королей над островом, Рейкьявик становится центром сбора дани и налогов, а также важным центром торговли с Норвегией, Англией и Ганзой. С ускорением экономического прогресса в XX веке рос и Рейкьявик, но особенно быстрое развитие он получил во второй половине XX века.</p>
+        <p class="applicationP"><a><i class="fas fa-monument mr-2"></i></a>Во время Второй мировой войны Рейкьявик приобрёл стратегически важное значение для американских и английских судов, которые несли патрульную службу в водах Северной Атлантики. 10 мая 1940 года, после того как Германия оккупировала Данию и Норвегию, британские войска высадились в Рейкьявике в ходе операции «Форк». Они не встретили никакого сопротивления. В декабре 1943 г. закончился срок действия договора о личной унии Дании и Исландии, заключённого в 1918 г. 17 июня 1944 г. Исландия была провозглашена независимой республикой, и её столицей официально был признан город Рейкьявик.</p>
+      </div>
+    </div>
+
+    <div class="card" style="width: 60%; ">
+        <img class="contentClass" src="../images/resultPhotos/icelandCityPage-2.jpg" alt="">
+    </div>
+    <br>
+    <div class="card" style="width: 60%; ">
+        <img class="contentClass" src="../images/resultPhotos/icelandCityPage-3.jpg" alt="">
+    </div>
+    <!-- Раздел: конец -->
+
+    <!-- Раздел: начало -->
+    <br>
+    <a name="onGeography"></a>
+    <p class="lifehacks" style="margin-left: 20%; margin-right: 20%;"> <i class="fas fa-globe-europe mr-2"></i>География</p>
+    <!-- Для больших экранов -->
+    <div class="row applicationRow">
+      <div class="col-lg-6 py-2">
+          <div class="card card-body h-100" style="border: none;">
+              <p class="applicationP"><a> <i class="fas fa-globe-europe mr-2"></i></a>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+              <p class="applicationP"><a> <i class="fas fa-globe-europe mr-2"></i><img class="right rounded-circle" src="../images/resultPhotos/icelandCityPage-1sub.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+                  Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+          </div>
+      </div>
+
+      <div class="col-lg-6 py-2">
+        <div class="card card-body h-100" style="border: none;">
+            <p class="applicationP"><a> <i class="fas fa-globe-europe mr-2"></i><img class="right rounded-circle" src="../images/resultPhotos/icelandCityPage-2sub.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+              Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+            <p class="applicationP"><a> <i class="fas fa-globe-europe mr-2"></i></a>Название города правильно произносить с ударением на последний слог – РейкьявИк.</p>
+        </div>
+      </div>
+  </div>
+
+  <!-- Для малых экранов -->
+  <div class="smallScreen" style="margin-left: 20%; margin-right: 20%;">
+    <div>
+      <br>
+      <p class="applicationP"> <i class="fas fa-globe-europe mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+      <p class="applicationP"> <i class="fas fa-globe-europe mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+          Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+      <p class="applicationP"><i class="fas fa-globe-europe mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+      <p class="applicationP"><i class="fas fa-globe-europe mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+          Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+    </div>
+  </div>
+
+  <div class="card" style="width: 60%; ">
+      <img class="contentClass" src="../images/resultPhotos/icelandCityPage-4.jpg" alt="">
+  </div>
+  <!-- Раздел: конец -->
+
+  <!-- Раздел: начало -->
+  <br>
+  <a name="onClimate"></a>
+  <p class="lifehacks" style="margin-left: 20%; margin-right: 20%;"><i class="fas fa-snowflake mr-2"></i>Климат</p>
+  <!-- Для больших экранов -->
+  <div class="row applicationRow">
+    <div class="col-lg-6 py-2">
+        <div class="card card-body h-100" style="border: none;">
+            <p class="applicationP"><a><i class="fas fa-snowflake mr-2"></i></a>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+            <p class="applicationP"><a><i class="fas fa-snowflake mr-2"></i><img class="right rounded-circle" src="../images/backgroundPage.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+                Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+        </div>
+    </div>
+
+    <div class="col-lg-6 py-2">
+      <div class="card card-body h-100" style="border: none;">
+          <p class="applicationP"><a><i class="fas fa-snowflake mr-2"></i><img class="right rounded-circle" src="../images/backgroundPage.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+            Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+          <p class="applicationP"><a><i class="fas fa-snowflake mr-2"></i></a>Название города правильно произносить с ударением на последний слог – РейкьявИк.</p>
+      </div>
+    </div>
+</div>
+
+<!-- Для малых экранов -->
+<div class="smallScreen" style="margin-left: 20%; margin-right: 20%;">
+  <div>
+    <br>
+    <p class="applicationP"><i class="fas fa-snowflake mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+    <p class="applicationP"><i class="fas fa-snowflake mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+        Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+    <p class="applicationP"><i class="fas fa-snowflake mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+    <p class="applicationP"><i class="fas fa-snowflake mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+        Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+  </div>
+</div>
+
+<div class="card" style="width: 60%; ">
+    <img class="contentClass" src="../images/resultPhotos/icelandCityPage-5.jpg" alt="">
+</div>
+<br>
+<div class="card" style="width: 60%; ">
+    <img class="contentClass" src="../images/resultPhotos/icelandCityPage-5.jpg" alt="">
+</div>
+<!-- Раздел: конец -->
+
+<!-- Раздел: начало -->
+<br>
+<a name="onBeach"></a>
+<p class="lifehacks" style="margin-left: 20%; margin-right: 20%;"><i class="fas fa-umbrella-beach mr-2"></i>Пляж</p>
+<!-- Для больших экранов -->
+<div class="row applicationRow">
+  <div class="col-lg-6 py-2">
+      <div class="card card-body h-100" style="border: none;">
+          <p class="applicationP"><a><i class="fas fa-umbrella-beach mr-2"></i></a>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+          <p class="applicationP"><a><i class="fas fa-umbrella-beach mr-2"></i><img class="right rounded-circle" src="../images/backgroundPage.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+              Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+      </div>
+  </div>
+
+  <div class="col-lg-6 py-2">
+    <div class="card card-body h-100" style="border: none;">
+        <p class="applicationP"><a><i class="fas fa-umbrella-beach mr-2"></i><img class="right rounded-circle" src="../images/backgroundPage.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+          Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+        <p class="applicationP"><a><i class="fas fa-umbrella-beach mr-2"></i></a>Название города правильно произносить с ударением на последний слог – РейкьявИк.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Для малых экранов -->
+<div class="smallScreen" style="margin-left: 20%; margin-right: 20%;">
+<div>
+  <br>
+  <p class="applicationP"><i class="fas fa-umbrella-beach mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+  <p class="applicationP"><i class="fas fa-umbrella-beach mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+      Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+  <p class="applicationP"><i class="fas fa-umbrella-beach mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+  <p class="applicationP"><i class="fas fa-umbrella-beach mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+      Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+</div>
+</div>
+
+<div class="card" style="width: 60%; ">
+  <img class="contentClass" src="../images/resultPhotos/icelandStartPage-2.jpg" alt="">
+</div>
+<br>
+<div class="card" style="width: 60%; ">
+    <img class="contentClass" src="../images/resultPhotos/icelandStartPage-2.jpg" alt="">
+</div>
+<!-- Раздел: конец -->
+
+<!-- Раздел: начало -->
+<br>
+<a name="onBuying"></a>
+<p class="lifehacks" style="margin-left: 20%; margin-right: 20%;"><i class="fas fa-shopping-cart mr-2"></i>Покупки</p>
+<!-- Для больших экранов -->
+<div class="row applicationRow">
+  <div class="col-lg-6 py-2">
+      <div class="card card-body h-100" style="border: none;">
+          <p class="applicationP"><a><i class="fas fa-shopping-cart mr-2"></i></a>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+          <p class="applicationP"><a><i class="fas fa-shopping-cart mr-2"></i><img class="right rounded-circle" src="../images/backgroundPage.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+              Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+      </div>
+  </div>
+
+  <div class="col-lg-6 py-2">
+    <div class="card card-body h-100" style="border: none;">
+        <p class="applicationP"><a><i class="fas fa-shopping-cart mr-2"></i><img class="right rounded-circle" src="../images/backgroundPage.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+          Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+        <p class="applicationP"><a><i class="fas fa-shopping-cart mr-2"></i></a>Название города правильно произносить с ударением на последний слог – РейкьявИк.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Для малых экранов -->
+<div class="smallScreen" style="margin-left: 20%; margin-right: 20%;">
+<div>
+  <br>
+  <p class="applicationP"><i class="fas fa-shopping-cart mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+  <p class="applicationP"><i class="fas fa-shopping-cart mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+      Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+  <p class="applicationP"><i class="fas fa-shopping-cart mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+  <p class="applicationP"><i class="fas fa-shopping-cart mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+      Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+</div>
+</div>
+
+<div class="card" style="width: 60%; ">
+  <img class="contentClass" src="../images/resultPhotos/icelandStartPage-2.jpg" alt="">
+</div>
+<!-- Раздел: конец -->
+
+<!-- Раздел: начало -->
+<br>
+<a name="onTransport"></a>
+<p class="lifehacks" style="margin-left: 20%; margin-right: 20%;"><i class="fas fa-car mr-2"></i>Транспорт</p>
+<!-- Для больших экранов -->
+<div class="row applicationRow">
+  <div class="col-lg-6 py-2">
+      <div class="card card-body h-100" style="border: none;">
+          <p class="applicationP"><a><i class="fas fa-car mr-2"></i></a>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+          <p class="applicationP"><a><i class="fas fa-car mr-2"></i><img class="right rounded-circle" src="../images/backgroundPage.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+              Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+      </div>
+  </div>
+
+  <div class="col-lg-6 py-2">
+    <div class="card card-body h-100" style="border: none;">
+        <p class="applicationP"><a><i class="fas fa-car mr-2"></i><img class="right rounded-circle" src="../images/backgroundPage.jpg" style="width: 10vw; height: 10vw;"></a>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+          Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+        <p class="applicationP"><a><i class="fas fa-car mr-2"></i></a>Название города правильно произносить с ударением на последний слог – РейкьявИк.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Для малых экранов -->
+<div class="smallScreen" style="margin-left: 20%; margin-right: 20%;">
+<div>
+  <br>
+  <p class="applicationP"><i class="fas fa-car mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+  <p class="applicationP"><i class="fas fa-car mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+      Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+  <p class="applicationP"><i class="fas fa-car mr-2"></i>Appy Hour (Android) / (iPhone) – подсказывает счастливые часы в заведениях, когда можно попасть на неплохую скидку</p>
+  <p class="applicationP"><i class="fas fa-car mr-2"></i>Казалось бы, где приполярный Рейкьявик и где – южные курорты с пляжами. Однако даже в самой северной столице мира есть где искупаться, не рискуя схватить простуду.
+
+      Единственный песчаный пляж носит название Найтхолсвик. Располагается он в пригороде Рейкьявика, на берегу неглубокого залива. Летом здесь всегда множество отдыхающих, несмотря на то, что даже в июле вода в Атлантике не прогревается выше +15 °C.</p>
+</div>
+</div>
+
+<div class="card" style="width: 60%; ">
+  <img class="contentClass" src="../images/resultPhotos/icelandStartPage-2.jpg" alt="">
+</div>
+<br>
+<div class="card" style="width: 60%; ">
+    <img class="contentClass" src="../images/resultPhotos/icelandStartPage-2.jpg" alt="">
+</div>
+<!-- Раздел: конец -->
+
+      <br>
+      <footer class="page-footer font-small">
+        <div class="footer-copyright text-center py-3">© 2020 Авторские права:
+          <a href="https://github.com/alextar04" style="color: black"> Алексей Таран</a>
+        </div>
+      </footer>
+
+    </body>
+
+</html>

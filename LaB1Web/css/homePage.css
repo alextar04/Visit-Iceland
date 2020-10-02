@@ -36,6 +36,12 @@ div.adaptiveSize{
     }
 }
 
+button.dropdown-item:active{
+    background-color: white;
+    color:black !important;
+    outline: none !important;
+}
+
 /**************/
 
 /* Нижняя часть экрана */
@@ -80,7 +86,10 @@ img.contentClass{
 }
 
 .linkClass{
-    color:rgba(0, 0, 0, 0.5);
+    color:rgba(0, 0, 0, 0.9);
+    font-family: 'PT Serif';
+    font: bold;
+    letter-spacing: 0px;
     text-decoration: none;
 }
 
@@ -147,43 +156,19 @@ div.applicationRow{
     margin-right: 18%;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 992px) {
     div.applicationRow{
-        text-decoration: none;
-        margin-left: 17%; 
-        margin-right: 17%;
+        display: none;
     }
 }
 
-@media screen and (max-width: 900px) {
-    div.applicationRow{
-        text-decoration: none;
-        margin-left: 16%; 
-        margin-right: 16%;
-    }
+div.smallScreen{
+    display: none;
 }
 
-@media screen and (max-width: 800px) {
-    div.applicationRow{
-        text-decoration: none;
-        margin-left: 15%; 
-        margin-right: 15%;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    div.applicationRow{
-        text-decoration: none;
-        margin-left: 14%; 
-        margin-right: 14%;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    div.applicationRow{
-        text-decoration: none;
-        margin-left: 13%; 
-        margin-right: 13%;
+@media screen and (max-width: 992px) {
+    div.smallScreen{
+        display: block;
     }
 }
 
@@ -198,13 +183,6 @@ div.applicationRow{
 }
 
 /***********/
-body{
-    /*background: no-repeat;
-    background-image: url(images/backgroundPage.jpg);
-    background-attachment: fixed;
-    background-size: cover;*/
-}
-
 
 p {
     font-family: 'league_gothicregular';
@@ -216,4 +194,11 @@ a{
     font-family: 'bebas_neue_regularregular';
     font-style: normal;
     letter-spacing: 1px;
+}
+
+  .modal {
+    position: absolute;
+    left: 100%;
+    top: 100%;
+    transform: translate(0, 25%);
 }
