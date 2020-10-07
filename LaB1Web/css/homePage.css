@@ -202,3 +202,25 @@ a{
     top: 100%;
     transform: translate(0, 25%);
 }
+
+.img-wrap {
+    position: relative;
+  }
+  
+  .img-wrap h1 {
+    position: absolute;
+    bottom: 50%;
+    text-align: center;
+    color: linen;
+    width: 100%;
+    font-size: 5vh;
+  }
+
+  a.fontPart{
+    font-size: 1.8vw;
+  }
+  @media screen and (max-width: 575px) {
+    a.fontPart{
+        font-size: 4vw;
+    }
+}
