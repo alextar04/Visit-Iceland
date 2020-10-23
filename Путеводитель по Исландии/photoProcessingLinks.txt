@@ -1,2 +1,3 @@
 https://watermarkly.com/ru/add-text-to-photo/
 https://online-photo-converter.com/ru/darken-photo
+https://stackoverflow.com/questions/42722433/accessing-props-in-vue-component-data-function
