@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ setPageName }}
+    {{ setPageName(pageName) }}
     <headerComponent
       v-bind:listCityPlaceholder="listCity"
     />
@@ -13,6 +13,8 @@
       v-bind:generalNameChaptersPlaceholder="generalNameChapters"
       v-bind:generalLogoChaptersPlaceholder="generalLogoChapters"
       v-bind:getCountStringsFunction="getStringIndexesForChapters"
+      v-bind:setScreenNameFunction="setPageName"
+      v-bind:screenName="pageName"
     />
     <a id="#history"></a>
     <sectionComponent 
@@ -181,9 +183,13 @@ export default{
         array[i] = i
       }
       return array
-    },
-    setPageName: function(){
-      document.title = this.pageName
+    }
+  },
+  methods:{
+     setPageName: function(pagename){
+      if (pagename !== "null"){
+        document.title = pagename
+      }
     }
   },
   components: {

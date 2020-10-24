@@ -3,7 +3,7 @@
         <p class="lifehacks" style="margin-left: 20%; margin-right: 20%;"><i :class="generalLogoChaptersPlaceholder"></i>{{ generalNameChaptersPlaceholder.toUpperCase() }}:</p>
         <div v-for="index in getCountStringsFunction" :key="index">
             <div class="card-deck" style="margin-left: 20%; margin-right: 20%;">
-            <div class="card" v-for="chapter in listChaptersPlaceholder.slice(3*index, 3*(index+1))" :key="chapter.id">
+            <div class="card" v-for="chapter in listChaptersPlaceholder.slice(3*index, 3*(index+1))" :key="chapter.id" v-on:click="setScreenNameFunction(screenName)">
                 <div class="img-wrap">
                 <router-link class="linkClass" :to="chapter.link">
                 <img class="card-img-top" :src="chapter.photoPath" alt="Card image cap">
@@ -22,8 +22,10 @@ export default{
   props: ['listChaptersPlaceholder',
           'generalNameChaptersPlaceholder',
           'generalLogoChaptersPlaceholder',
-          'getCountStringsFunction'
-          ]
+          'getCountStringsFunction',
+          'setScreenNameFunction',
+          'screenName'
+          ],
 }
 </script>
 

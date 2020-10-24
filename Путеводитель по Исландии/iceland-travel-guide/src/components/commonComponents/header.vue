@@ -25,7 +25,7 @@
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-city mr-2"></i>Города</a>
               <div class="dropdown-menu adaptiveSize">
                 <div v-for="city in listCityPlaceholder" :key="city.id">
-                    <button class="dropdown-item" type="button"><router-link class="linkClass" :to="city.name">{{ city.name }}</router-link></button>
+                    <button class="dropdown-item" type="button"><router-link onClick={this.forceUpdate} class="linkClass" :to="city.name">{{ city.name }}</router-link></button>
                 </div>
               </div>
             </li>
@@ -42,61 +42,33 @@
               <router-link class="nav-link" to="housing"><i class="fas fa-igloo mr-2"></i>Где жить</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-target="#exampleModal" data-toggle="modal"><i class="fas fa-door-open mr-2"></i>Войти</a>
+              <a class="nav-link" @refresh-page="refreshPage" href="#" data-target="#exampleModal" data-toggle="modal"><i class="fas fa-door-open mr-2"></i>{{ checkSignIn() }}</a>
             </li>
           </ul>
         </div>
       </nav>
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-
-            <div class="modal-header text-center">
-              <h5 class="modal-title w-100" id="exampleModalLabel" >Вход в систему</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите Email">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Пароль</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите пароль">
-                </div>
-
-                <div class="row" style="font-weight: normal; text-transform: initial; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">
-                  <div class="custom-control custom-radio col">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">Запомнить в системе</label>
-                  </div>
-
-                  <div class="col">
-                    <a class="linkClass" href="#" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">
-                      Зарегестрироваться
-                    </a>
-                  </div>
-                </div>
-
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Отправить</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <signIn />
 </div>
 </template>
 
 <script>
+import signIn from '@/components/commonComponents/signIn.vue'
 export default{
-  props: ['listCityPlaceholder']
+  props: ['listCityPlaceholder'],
+  components: {
+    signIn,
+  },
+  methods:{
+    checkSignIn(){
+      if (localStorage.getItem('user') === null){
+        return "Войти"
+      }else{
+        let email = JSON.parse(localStorage.getItem('user')).email
+        return email
+      }
+    },
+  }
 }
 </script>
 

@@ -11,6 +11,7 @@
       v-bind:generalNameChaptersPlaceholder="generalNameChapters"
       v-bind:generalLogoChaptersPlaceholder="generalLogoChapters"
       v-bind:getCountStringsFunction="getStringIndexesForChapters"
+      v-bind:setScreenNameFunction="setPageName"
     />
     <mainDescription
       v-bind:descriptionFirstPlaceholder="descriptionFirst"
@@ -26,7 +27,7 @@
       v-bind:videoContentLinkPlaceholder="videoLink"
     />
     <br><br>
-    <a id="notes"></a>
+    <a id="#notes"></a>
     <sectionComponent 
         v-bind:nameSectionPlaceholder="nameSection"
         v-bind:sectionStickerPlaceholder="sectionSticker"
@@ -68,7 +69,7 @@ export default{
           {id: 2, text: "Кухня",  photoPath: require('@/assets/homePageImages/startPage6.jpg'), link: "kitchen"},
           {id: 3, text: "Как добраться",  photoPath: require('@/assets/homePageImages/startPage7.png'), link: "trip"},
           {id: 4, text: "Где жить",  photoPath: require('@/assets/homePageImages/startPage8.jpg'), link: "housing"},
-          {id: 5, text: "На заметку",  photoPath: require('@/assets/homePageImages/startPage9.jpg'), link: "notes"},
+          {id: 5, text: "На заметку",  photoPath: require('@/assets/homePageImages/startPage9.jpg'), link: "#notes"},
         ],
         descriptionFirst: "Тут не найдешь ни пятизвездочных отелей, ни шикарных клубов, да и ни к чему эти излишества: в Исландию едут не за тем, чтобы провести все свое время в столице. Но прежде чем отправиться в путь по окружной дороге навстречу ледникам, водопадам и фьордам, стоит побродить по пустынным улицам северного города. Где именно бродить и на что смотреть – читай в нашем гайде. Лучший способ передвижения по Исландии в мае (и не только) – арендованный автомобиль: рейсовые автобусы на дальние расстояния еще не ходят, автостопом ездить ненадежно, а на велосипеде в это время слишком холодно.",
         descriptionSecond: "Исландия – это страна про все времена года: в каждом сезоне найдется что-то особенное. Поздней весной теплеет на юге, хотя на севере еще лежит снег, а водопады наполовину закованы в лед. Зима – самое время для голубых пещер и северного сияния. Осенью голубой лед все еще голубой, достопримечательности все еще достопримечательны, а вот туристов гораздо меньше, чем в высокий сезон. Итак, помимо очевидной теплой непродуваемой одежды и удобной обуви, стоит захватить с собой купальник и плавки – в Исландии на каждом шагу встречаются горячие бассейны, не искупаться в которых грешновато.",
@@ -99,6 +100,9 @@ export default{
       }
       return array
     }
+  },
+  methods:{
+     setPageName: function(pagename){}
   },
   components: {
     headerComponent,

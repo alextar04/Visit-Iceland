@@ -12,6 +12,7 @@
       v-bind:generalNameChaptersPlaceholder="generalNameChapters"
       v-bind:generalLogoChaptersPlaceholder="generalLogoChapters"
       v-bind:getCountStringsFunction="getStringIndexesForChapters"
+      v-bind:setScreenNameFunction="setPageName"
     />
     <a id="#streetfood"></a>
     <sectionComponent 
@@ -116,6 +117,9 @@ export default{
       }
       return array
     }},
+  methods:{
+     setPageName: function(pagename){}
+  },
   components: {
     headerComponent,
     footerComponent,

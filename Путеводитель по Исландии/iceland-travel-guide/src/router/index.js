@@ -10,7 +10,7 @@ const routes = [
    {
     path: '/:name',
     component: () => import('@/views/cityPage.vue'),
-    meta: { title: "Подробнее о городе" },
+    meta: { title: "" },
    },
    {
     path: '/attractions',
