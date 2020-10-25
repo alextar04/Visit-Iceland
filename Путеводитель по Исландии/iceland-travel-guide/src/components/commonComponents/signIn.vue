@@ -7,7 +7,7 @@
             <a v-if="getSignInStatus() !== 'Войти'">
             <div class="modal-header text-center">
               <h5 class="modal-title w-100" id="exampleModalLabel" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;" >Личный кабинет</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" @click="parentRefresh()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -94,6 +94,7 @@ export default{
           })
         }
         e.preventDefault();
+        this.parentRefresh()
       },
       validate() {
         this.errors = {}
@@ -108,6 +109,7 @@ export default{
     logout() {
         User.logout()
         this.$forceUpdate()
+        this.parentRefresh()
       },
     getSignInStatus(){
       if (localStorage.getItem('user') === null){
@@ -118,7 +120,7 @@ export default{
       }
     },
     parentRefresh(){
-      location.reload()
+      this.$emit('refresh-after-sign-in')
     }
   },
 }

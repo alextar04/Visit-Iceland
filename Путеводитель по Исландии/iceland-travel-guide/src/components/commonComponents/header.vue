@@ -42,19 +42,27 @@
               <router-link class="nav-link" to="housing"><i class="fas fa-igloo mr-2"></i>Где жить</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" @refresh-page="refreshPage" href="#" data-target="#exampleModal" data-toggle="modal"><i class="fas fa-door-open mr-2"></i>{{ checkSignIn() }}</a>
+              {{ checkSignIn() }}
+              <a class="nav-link" href="#" data-target="#exampleModal" data-toggle="modal"><i class="fas fa-door-open mr-2"></i>{{ username }}</a>
             </li>
           </ul>
         </div>
       </nav>
 
-      <signIn />
+      <signIn 
+        v-on:refresh-after-sign-in="checkSignIn"
+      />
 </div>
 </template>
 
 <script>
 import signIn from '@/components/commonComponents/signIn.vue'
 export default{
+  data(){
+        return {
+            username: "Войти"
+        }
+  },
   props: ['listCityPlaceholder'],
   components: {
     signIn,
@@ -62,10 +70,10 @@ export default{
   methods:{
     checkSignIn(){
       if (localStorage.getItem('user') === null){
-        return "Войти"
+        this.username = "Войти"
       }else{
         let email = JSON.parse(localStorage.getItem('user')).email
-        return email
+        this.username = email
       }
     },
   }

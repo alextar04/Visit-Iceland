@@ -40,6 +40,13 @@
       v-bind:listPhotosPathPlaceholder="listPhotosPath3"
       v-bind:id="id3"
     /><br>
+    <comments
+      v-bind:commentsList="commentsList"
+      @remove-comment="removeComment"
+      @add-comment="addComment"
+      @update-comment="updateComment"
+    />
+    <br>
     <footerComponent />
   </div>
 </template>
@@ -50,6 +57,7 @@ import footerComponent from '@/components/commonComponents/footer.vue'
 import listChapters from '@/components/commonComponents/listChapters.vue'
 import sectionComponent from '@/components/attractionsOnlyPageComponents/sectionAttractionsPage.vue'
 import carouselBase from '@/components/commonComponents/carouselBase.vue'
+import comments from '@/components/attractionsOnlyPageComponents/commentsComponent.vue'
 export default{
     data(){
       return{
@@ -103,6 +111,11 @@ export default{
           {id: 0, photoPath: require('@/assets/attractionPageImages/attractionsPage11.jpg'), activeForFirst: "carousel-item active"},
           {id: 1, photoPath: require('@/assets/attractionPageImages/attractionsPage12.jpg'), activeForFirst: "carousel-item"},
         ],
+        commentsList: [
+          {id: 1, username: "Алексей", date: "25/10/20 15:04" , text: "Две недели прошли на привезенных из дома макаронах и рыбешке, которую исландские рыбаки в портах отдавали бесплатно, ловя мой адски голодный взгляд. Но именно тогда, в 2014 году, я решил, что эта страна стоит всех денег и даже больше. Это другая планета, помесь Марса и Нептуна."},
+          {id: 2, username: "Сергей", date: "25/10/20 15:04" , text: "Две недели прошли на привезенных из дома макаронах и рыбешке, которую исландские рыбаки в портах отдавали бесплатно, ловя мой адски голодный взгляд. Но именно тогда, в 2014 году, я решил, что эта страна стоит всех денег и даже больше. Это другая планета, помесь Марса и Нептуна."},
+          {id: 3, username: "Михаил", date: "25/10/20 15:04" , text: "Две недели прошли на привезенных из дома макаронах и рыбешке, которую исландские рыбаки в портах отдавали бесплатно, ловя мой адски голодный взгляд. Но именно тогда, в 2014 году, я решил, что эта страна стоит всех денег и даже больше. Это другая планета, помесь Марса и Нептуна."}
+        ]
     }},
     computed: {
     getStringIndexesForChapters: function(){
@@ -114,14 +127,43 @@ export default{
       return array
     }},
   methods:{
-     setPageName: function(pagename){}
+     setPageName: function(pagename){},
+     removeComment(id){
+        this.commentsList = this.commentsList.filter(t => t.id != id)
+     },
+     updateComment(id, text){
+       this.commentsList[id-1].text = text
+     },
+     addComment(text){
+       let id = this.commentsList.length + 1
+       let recievedtext = text
+       var date = new Date();
+       let dateString = ("0" + date.getDate()).slice(-2) + "/" + ("0"+(date.getMonth()+1)).slice(-2) + "/" +
+    date.getFullYear().toString().slice(-2) + " " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+       let user = this.getSignInStatus()
+       this.commentsList.unshift({
+         id: id,
+         username: user,
+         date: dateString,
+         text: recievedtext,
+       })
+     },
+     getSignInStatus(){
+      if (localStorage.getItem('user') === null){
+        return "Войти"
+      }else{
+        let email = JSON.parse(localStorage.getItem('user')).email
+        return email
+      }
+    },
   },
   components: {
     headerComponent,
     footerComponent,
     listChapters,
     sectionComponent,
-    carouselBase
+    carouselBase,
+    comments
   }
 }
 </script>
