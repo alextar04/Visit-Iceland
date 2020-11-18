@@ -15,6 +15,6 @@ services:
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
     environment:
       - MYSQL_ROOT_PASSWORD=verysecret
-      - MYSQL_DATABASE=bstu
-      - MYSQL_USER=bstu
-      - MYSQL_PASSWORD=bstu321!
+      - MYSQL_DATABASE=iceland
+      - MYSQL_USER=alexey
+      - MYSQL_PASSWORD=alexey

@@ -5,16 +5,30 @@ use app\modules\v1\models\Trip;
 use app\modules\v1\models\Chapter;
 use app\modules\v1\models\Note;
 use app\modules\v1\models\PagePhoto;
+use Yii;
 
 
 class TripController extends ApiController{
     /**
      * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/trip/create
+     */
+    public function actionCreate(){
+        $model = new Trip();
+        $model->load(Yii::$app->request->getBodyParams(), '');
+        $model->save();
+
+        return $model;
+    }
+
+
+    /**
+     * Пример запроса:
      * http://127.0.0.1:1199/api/v1/trip/names
      */
     public function actionNames(){   
-        $tripObject = new Trip();
-        return $tripObject -> dataTable();
+        $response = Trip::find()->all();
+        return $response;
     }
 
 
@@ -23,13 +37,9 @@ class TripController extends ApiController{
      * http://127.0.0.1:1199/api/v1/trip/chapter?tripid=0
      */
     public function actionChapter($tripid){
-        /*
-            Замена на выборку из БД
-            (Раздел транспорта)
-            Фильтр по названию варианта перемещения из id
-        */
-        $chapterObject = new Chapter();
-        return $chapterObject->dataTable()[9];
+        $tripName = Trip::findOne(['id' => $tripid])['name'];
+        $response = Chapter::findAll(['text' => $tripName]);
+        return $response;
     }
 
 
@@ -38,13 +48,9 @@ class TripController extends ApiController{
      * http://127.0.0.1:1199/api/v1/trip/note?tripid=0
      */
     public function actionNote($tripid){
-        /*
-            Замена на выборку из БД
-            (Заметка для транспорта)
-            Фильтр по названию варианта перемещения из id
-        */
-        $noteObject = new Note();
-        return $noteObject->dataTable()[7];
+        $tripName = Trip::findOne(['id' => $tripid])['name'];
+        $response = Note::findAll(['chapterText' => $tripName]);
+        return $response;
     }
 
 
@@ -53,12 +59,7 @@ class TripController extends ApiController{
      * http://127.0.0.1:1199/api/v1/trip/photo
      */
     public function actionPhoto(){
-        /*
-            Замена на выборку из БД
-            (Изображения для страницы транспорта)
-            Фильтр по namePage == 'trip'
-        */
-        $photoObject = new PagePhoto();
-        return array_slice($photoObject->dataTable(), 8, 1);
+        $response = Pagephoto::findAll(['namePage' => 'trip']);
+        return $response;
     }
 }

@@ -6,17 +6,31 @@ use app\modules\v1\models\Chapter;
 use app\modules\v1\models\Note;
 use app\modules\v1\models\PagePhoto;
 use app\modules\v1\models\Comment;
+use Yii;
 
 
 class AttractionController extends ApiController{
 
     /**
      * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/attraction/create
+     */
+    public function actionCreate(){
+        $model = new Attraction();
+        $model->load(Yii::$app->request->getBodyParams(), '');
+        $model->save();
+
+        return $model;
+    }
+
+    /**
+     * Пример запроса:
      * http://127.0.0.1:1199/api/v1/attraction/names
      */
     public function actionNames(){   
-        $attractionObject = new Attraction();
-        return $attractionObject -> dataTable();
+        $response = Attraction::find()
+                    ->all();
+        return $response;
     }
 
 
@@ -25,13 +39,9 @@ class AttractionController extends ApiController{
      * http://127.0.0.1:1199/api/v1/attraction/chapter?attractionid=0
      */
     public function actionChapter($attractionid){
-        /*
-            Замена на выборку из БД
-            (Раздел достопримечательности)
-            Фильтр по имени достопримечательности из id
-        */
-        $chapterObject = new Chapter();
-        return $chapterObject->dataTable()[6];
+        $attractionName = Attraction::findOne(['id' => $attractionid])['name'];
+        $response = Chapter::findAll(['text' => $attractionName]);
+        return $response;
     }
 
 
@@ -40,13 +50,9 @@ class AttractionController extends ApiController{
      * http://127.0.0.1:1199/api/v1/attraction/note?attractionid=0
      */
     public function actionNote($attractionid){
-        /*
-            Замена на выборку из БД
-            (Заметка для достопримечательности)
-            Фильтр по имени достопримечательности из id
-        */
-        $noteObject = new Note();
-        return $noteObject->dataTable()[4];
+        $chaptername = Attraction::findOne(['id' => $attractionid])['name'];
+        $response = Note::findOne(['chapterText' => $chaptername]);
+        return $response;
     }
 
 
@@ -55,13 +61,8 @@ class AttractionController extends ApiController{
      * http://127.0.0.1:1199/api/v1/attraction/photo
      */
     public function actionPhoto(){
-        /*
-            Замена на выборку из БД
-            (Изображения для страницы достопримечательностей)
-            Фильтр по namePage == 'attractions'
-        */
-        $photoObject = new PagePhoto();
-        return array_slice($photoObject->dataTable(), 3, 3);
+        $response = Pagephoto::findAll(['namePage' => 'attractions']);
+        return $response;
     }
 
     /**
@@ -69,12 +70,59 @@ class AttractionController extends ApiController{
      * http://127.0.0.1:1199/api/v1/attraction/comment?id=0
      */
     public function actionComment($id){
-        /*
-            Замена на выборку из БД
-            Получение комментария с определенным id
-        */
-        $commentObject = new Comment();
-        return $commentObject->dataTable()[$id];
+        $response = Comment::findOne(['id' => $id]);
+        return $response;
+    }
+
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/attraction/edit_comment?id=0&text=sometext
+     */
+    public function actionEdit_comment($id, $text){
+        $comment = Comment::findOne(['id' => $id]);
+        $comment->text = $text;
+        $comment->date = Yii::$app->formatter->asDatetime('now', 'php:Y-m-d H:i:s');
+        $comment->save();
+        return $comment;
+    }
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/attraction/new_comment?username=alexey&text=sometext
+     */
+    public function actionNew_comment($username, $text){
+        $comment = new Comment();
+        $comment->username = $username;
+        $comment->date = Yii::$app->formatter->asDatetime('now', 'php:Y-m-d H:i:s');
+        $comment->text = $text;
+        $comment->save();
+        return $comment;
+    }
+
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/attraction/delete_comment?id=0
+     */
+    public function actionDelete_comment($id){
+        $comment = Comment::findOne(['id' => $id]);
+        $comment->delete();
+    }
+
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/attraction/ids
+     */
+    public function actionIds(){
+        $response = Attraction::findBySql('SELECT id FROM attraction')->all();
+        $idArray = array();
+        foreach ($response as $idObject){
+            array_push($idArray, $idObject['id']);
+        }
+
+        return $idArray;
     }
 
 }

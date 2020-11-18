@@ -1,20 +1,43 @@
 <?php
 
 namespace app\modules\v1\models;
-use yii\base\Model;
+use Yii;
 
-class Video extends Model {
+/**
+ * This is the model class for table "video".
+ *
+ * @property int $id
+ * @property string $link Ссылка
+ */
+class Video extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'video';
+    }
 
-    public function rules(){
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
         return [
-            [['id'], 'required', 'number'],
-            [['name'], 'required', 'string'],
+            [['link'], 'required'],
+            [['link'], 'string', 'max' => 512],
         ];
     }
 
-    public function dataTable(){
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
         return [
-            ['id' => 0, 'name' => 'https://www.youtube.com/embed/wb84vvYSPEU'],
+            'id' => 'ID',
+            'link' => 'Ссылка',
         ];
     }
 }

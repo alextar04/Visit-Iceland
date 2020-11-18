@@ -1,22 +1,43 @@
 <?php
 
 namespace app\modules\v1\models;
-use yii\base\Model;
+use Yii;
 
-class Trip extends Model {
+/**
+ * This is the model class for table "trip".
+ *
+ * @property int $id
+ * @property string $name Название
+ */
+class Trip extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'trip';
+    }
 
-    public function rules(){
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
         return [
-            [['id'], 'required', 'number'],
-            [['name'], 'required', 'string'],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 128],
         ];
     }
 
-    public function dataTable(){
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
         return [
-            ['id' => 0, 'name' => "Самолет"],
-            ['id' => 1, 'name' => "Паром"],
-            ['id' => 2, 'name' => "Прокат авто"],
+            'id' => 'ID',
+            'name' => 'Название',
         ];
     }
 }

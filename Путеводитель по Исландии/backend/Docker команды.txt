@@ -5,4 +5,8 @@ docker exec -it backend_php_1 bash
 docker-compose rm -f
 docker-compose logs
 
-      - ./apache_config:/etc/apache2/sites-available
+	http://localhost:1199/adminer-4.7.7.php
+
+docker-compose run php yii migrate/create create_city_table
+docker-compose run php yii migrate/up
+docker-compose run php yii migrate/down

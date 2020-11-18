@@ -4,19 +4,20 @@ namespace app\modules\v1\models;
 use Yii;
 
 /**
- * This is the model class for table "housing".
+ * This is the model class for table "maincontentchapter".
  *
  * @property int $id
  * @property string $name Название
+ * @property string $link Ссылка
  */
-class Housing extends \yii\db\ActiveRecord
+class Maincontentchapter extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'housing';
+        return 'maincontentchapter';
     }
 
     /**
@@ -25,8 +26,8 @@ class Housing extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 128],
+            [['name', 'link'], 'required'],
+            [['name', 'link'], 'string', 'max' => 128],
         ];
     }
 
@@ -38,6 +39,7 @@ class Housing extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
+            'link' => 'Ссылка',
         ];
     }
 }

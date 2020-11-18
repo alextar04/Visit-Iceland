@@ -1,33 +1,64 @@
 <?php
 
 namespace app\modules\v1\models;
-use yii\base\Model;
+use Yii;
 
-class Chapter extends Model {
+/**
+ * This is the model class for table "chapter".
+ *
+ * @property int $id
+ * @property int|null $idCity Название города
+ * @property string $text Текст
+ * @property string $photoPath Путь к изображению
+ * @property string $link Ссылка в приложении
+ *
+ * @property City $idCity0
+ */
+class Chapter extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'chapter';
+    }
 
-    public function rules(){
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
         return [
-            [['id'], 'required', 'number'],
-            [['idCity'], 'number'],
+            [['idCity'], 'integer'],
+            [['text', 'photoPath', 'link'], 'required'],
             [['text'], 'string'],
-            [['photoPath'], 'string'],
-            [['link'], 'string'],
+            [['photoPath', 'link'], 'string', 'max' => 255],
+            [['idCity'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['idCity' => 'id']],
         ];
     }
 
-    public function dataTable(){
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
         return [
-            ['id' => 0, 'idCity' => 0, 'text' => "История", 'photoPath' => '@/assets/cityPageImages/cityPage1_1.jpeg', 'link' => "Рейкъявик#history"],
-            ['id' => 1, 'idCity' => 0, 'text' => "География", 'photoPath' => '@/assets/cityPageImages/cityPage2_1.png', 'link' => "#geography"],
-            ['id' => 2, 'idCity' => 0, 'text' => "Климат",  'photoPath' => '@/assets/cityPageImages/cityPage3_1.jpg', 'link' => "#climate"],
-            ['id' => 3, 'idCity' => 0, 'text' => "Интересное",  'photoPath' => '@/assets/cityPageImages/cityPage4_1.jpg', 'link' => "#interesting"],
-            ['id' => 4, 'idCity' => 0, 'text' => "Покупки",  'photoPath' => '@/assets/cityPageImages/cityPage5_1.jpg', 'link' => "#buying"],
-            ['id' => 5, 'idCity' => 0, 'text' => "Транспорт",  'photoPath' => '@/assets/cityPageImages/cityPage6_1.png', 'link' => "#transport"],
-            ['id' => 6, 'text' => "Золотое кольцо", 'photoPath' => '@/assets/attractionPageImages/attractionsPage1.jpg', 'link' => "/attractions#1a"],
-            ['id' => 7, 'text' => "Отели", 'photoPath' => '@/assets/housingPageImages/housingImage1.jpg', 'link' => "/housing#hotel"],
-            ['id' => 8, 'text' => "Стритфуд", 'photoPath' => '@/assets/kitchenPageImages/kitchenPage1.jpg', 'link' => "/kitchen#streetfood"],
-            ['id' => 9, 'text' => "Самолет", 'photoPath' => '@/assets/tripPageImages/tripPage1.jpg', 'link' => "/trip#plane"],
-            ['id' => 10, 'text' => "На заметку", 'photoPath' => '@/assets/homePageImages/startPage9.jpg', 'link' => "#notes"],
+            'id' => 'ID',
+            'idCity' => 'Название города',
+            'text' => 'Текст',
+            'photoPath' => 'Путь к изображению',
+            'link' => 'Ссылка в приложении',
         ];
+    }
+
+    /**
+     * Gets query for [[IdCity0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdCity0()
+    {
+        return $this->hasOne(City::className(), ['id' => 'idCity']);
     }
 }

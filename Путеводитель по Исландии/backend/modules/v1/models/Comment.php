@@ -1,24 +1,49 @@
 <?php
 
 namespace app\modules\v1\models;
-use yii\base\Model;
+use Yii;
 
-class Comment extends Model {
+/**
+ * This is the model class for table "comment".
+ *
+ * @property int $id
+ * @property string $username
+ * @property string $date
+ * @property string $text
+ */
+class Comment extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'comment';
+    }
 
-    public function rules(){
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
         return [
-            [['id'], 'required', 'number'],
-            [['username'], 'required', 'string'],
-            [['date'], 'required', 'string'],
-            [['text'], 'required', 'string'],
+            [['username', 'date', 'text'], 'required'],
+            [['date'], 'safe'],
+            [['text'], 'string'],
+            [['username'], 'string', 'max' => 255],
         ];
     }
 
-    public function dataTable(){
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
         return [
-            ['id' => 0, 'username' => "Алексей", 'date' => "25/10/20 15:04", 'text' => "Две недели прошли на привезенных из дома макаронах и рыбешке, которую исландские рыбаки в портах отдавали бесплатно, ловя мой адски голодный взгляд. Но именно тогда, в 2014 году, я решил, что эта страна стоит всех денег и даже больше. Это другая планета, помесь Марса и Нептуна."],
-            ['id' => 1, 'username' => "Сергей", 'date' => "25/10/20 15:04", 'text' => "Две недели прошли на привезенных из дома макаронах и рыбешке, которую исландские рыбаки в портах отдавали бесплатно, ловя мой адски голодный взгляд. Но именно тогда, в 2014 году, я решил, что эта страна стоит всех денег и даже больше. Это другая планета, помесь Марса и Нептуна."],
-            ['id' => 2, 'username' => "Михаил", 'date' => "25/10/20 15:04", 'text' => "Две недели прошли на привезенных из дома макаронах и рыбешке, которую исландские рыбаки в портах отдавали бесплатно, ловя мой адски голодный взгляд. Но именно тогда, в 2014 году, я решил, что эта страна стоит всех денег и даже больше. Это другая планета, помесь Марса и Нептуна."],
+            'id' => 'ID',
+            'username' => 'Username',
+            'date' => 'Date',
+            'text' => 'Text',
         ];
     }
 }

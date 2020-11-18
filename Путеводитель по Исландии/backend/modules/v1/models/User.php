@@ -1,23 +1,46 @@
 <?php
 
 namespace app\modules\v1\models;
-use yii\base\Model;
+use Yii;
 
-class User extends Model {
 
-    public function rules(){
+/**
+ * This is the model class for table "user".
+ *
+ * @property int $id
+ * @property string $login Логин
+ * @property string $password Пароль
+ */
+class User extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'user';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
         return [
-            [['id'], 'required', 'number'],
-            [['login'], 'required', 'string'],
-            [['password'], 'required', 'string'],
+            [['login', 'password'], 'required'],
+            [['login', 'password'], 'string', 'max' => 512],
         ];
     }
 
-    public function dataTable(){
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
         return [
-            ['id' => 0, 'login' => "log123", 'password' => 'pass123'],
-            ['id' => 1, 'login' => "log223", 'password' => 'pass223'],
-            ['id' => 2, 'login' => "log323", 'password' => 'pass323'],
+            'id' => 'ID',
+            'login' => 'Логин',
+            'password' => 'Пароль',
         ];
     }
 }

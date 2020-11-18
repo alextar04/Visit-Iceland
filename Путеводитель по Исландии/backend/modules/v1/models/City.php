@@ -1,24 +1,43 @@
 <?php
 
 namespace app\modules\v1\models;
-use yii\base\Model;
+use Yii;
 
-class City extends Model {
+/**
+ * This is the model class for table "city".
+ *
+ * @property int $id
+ * @property string $name Название
+ */
+class City extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'city';
+    }
 
-    public function rules(){
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
         return [
-            [['id'], 'required', 'number'],
-            [['name'], 'required', 'string'],
+            [['id', 'name'], 'required'],
+            [['name'], 'string', 'max' => 128],
         ];
     }
 
-    public function dataTable(){
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
         return [
-            ['id' => 0, 'name' => "Рейкъявик"],
-            ['id' => 1, 'name' => "Коупавогюр"],
-            ['id' => 2, 'name' => "Хабнарфьодюр"],
-            ['id' => 3, 'name' => "Акюрейри"],
-            ['id' => 4, 'name' => "Кеблавик"],
+            'id' => 'ID',
+            'name' => 'Название',
         ];
     }
 }

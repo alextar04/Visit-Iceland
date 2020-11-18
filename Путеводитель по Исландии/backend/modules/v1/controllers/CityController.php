@@ -2,20 +2,36 @@
 
 namespace app\modules\v1\controllers;
 use app\modules\v1\models\City;
+use app\modules\v1\models\CityChapter;
 use app\modules\v1\models\Chapter;
 use app\modules\v1\models\Note;
 use app\modules\v1\models\PagePhoto;
+use Yii;
 
 
 class CityController extends ApiController
 {
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/city/create
+     */
+    public function actionCreate(){
+        $model = new City();
+        $model->load(Yii::$app->request->getBodyParams(), '');
+        $model->save();
+
+        return $model;
+    }
+
     /**
      * Пример запроса:
      * http://127.0.0.1:1199/api/v1/city/names
      */
     public function actionNames(){   
-        $cityObject = new City();
-        return $cityObject -> dataTable();
+        $response = City::find()
+                    ->all();
+        return $response;
     }
 
 
@@ -24,51 +40,38 @@ class CityController extends ApiController
      * http://127.0.0.1:1199/api/v1/city/name?id=2
      */
     public function actionName($id){
-        $city = $this->actionNames()[$id]["name"];
-        return [
-            'pageName' => $city
-        ];
+        $response = City::findOne(['id' => $id])["name"];
+        return $response;
     }
 
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/city/chapter?cityid=0
+     * http://127.0.0.1:1199/api/v1/city/chapter?idCity=1
      */
-    public function actionChapter($cityid){
-        /*
-            Замена на выборку из БД
-            (Раздел определенного города)
-        */
-        $chapterObject = new Chapter();
-        return array_slice($chapterObject->dataTable(), 0, 6);
+    public function actionChapter($idCity){
+        $response = Chapter::findAll(['idCity' => $idCity]);
+        return $response;
     }
 
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/city/note?cityid=0&chapterid=0
+     * http://127.0.0.1:1199/api/v1/city/note?idCity=0&idChapter=0
      */
-    public function actionNote($cityid, $chapterid){
-        /*
-            Замена на выборку из БД
-            (Заметки определенного города, определенного раздела)
-        */
-        $noteObject = new Note();
-        return array_slice($noteObject->dataTable(), 0, 4);
+    public function actionNote($idCity, $idChapter){
+        $chaptername = CityChapter::findOne(['id' => $idChapter])['name'];
+        $response = Note::findOne(['idCity' => $idCity, 'chapterText' => $chaptername]);
+        return $response;
     }
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/city/photo?cityid=0
+     * http://127.0.0.1:1199/api/v1/city/photo?idCity=0
      */
-    public function actionPhoto($cityid){
-        /*
-            Замена на выборку из БД
-            (Фото определенного города)
-        */
-        $cityPhotoObject = new PagePhoto();
-        return array_slice($cityPhotoObject->dataTable(), 0, 3);
+    public function actionPhoto($idCity){
+        $response = Pagephoto::findAll(['idCity' => $idCity]);
+        return $response;
     }
 
 }

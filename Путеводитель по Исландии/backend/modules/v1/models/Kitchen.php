@@ -1,22 +1,43 @@
 <?php
 
 namespace app\modules\v1\models;
-use yii\base\Model;
+use Yii;
 
-class Kitchen extends Model {
+/**
+ * This is the model class for table "kitchen".
+ *
+ * @property int $id
+ * @property string $name Название
+ */
+class Kitchen extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'kitchen';
+    }
 
-    public function rules(){
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
         return [
-            [['id'], 'required', 'number'],
-            [['name'], 'required', 'string'],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 128],
         ];
     }
 
-    public function dataTable(){
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
         return [
-            ['id' => 0, 'name' => "Стритфуд"],
-            ['id' => 1, 'name' => "Рестораны/кафе"],
-            ['id' => 2, 'name' => "Бары"],
+            'id' => 'ID',
+            'name' => 'Название',
         ];
     }
 }
