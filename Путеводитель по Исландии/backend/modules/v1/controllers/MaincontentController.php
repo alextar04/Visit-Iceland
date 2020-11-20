@@ -34,22 +34,42 @@ class MaincontentController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/maincontent/chapter?maincontentid=0
+     * http://127.0.0.1:1199/api/v1/maincontent/chapters
      */
-    public function actionChapter($maincontentid){
-        $contentName = MainContentChapter::findOne(['id' => $maincontentid])['name'];
-        $response = Chapter::findOne(['text' => $contentName]);
+    public function actionChapters(){
+
+        $names = $this->actionNames();
+        $idArray = array();
+        foreach ($names as $idObject){
+            array_push($idArray, $idObject['id']);
+        }
+
+        $resultArray = array();
+        foreach ($idArray as $maincontentid){
+            $contentName = MainContentChapter::findOne(['id' => $maincontentid])['name'];
+            $response = Chapter::findOne(['text' => $contentName]);
+            array_push($resultArray, $response);
+        }
+        return $resultArray;
+    }
+
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/maincontent/notes
+     */
+    public function actionNotes(){
+        $response = Note::findAll(['chapterText' => "На заметку"]);
         return $response;
     }
 
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/maincontent/note?maincontentid=0
+     * http://127.0.0.1:1199/api/v1/maincontent/description
      */
-    public function actionNote($maincontentid){
-        $contentName = MainContentChapter::findOne(['id' => $maincontentid])['name'];
-        $response = Note::findAll(['chapterText' => $contentName]);
+    public function actionDescription(){
+        $response = Note::findOne(['chapterText' => 'Описание']);
         return $response;
     }
 
@@ -59,7 +79,7 @@ class MaincontentController extends ApiController{
      * http://127.0.0.1:1199/api/v1/maincontent/photo
      */
     public function actionPhoto(){
-        $response = Pagephoto::findAll(['namePage' => 'maincontent']);
+        $response = Pagephoto::findAll(['namePage' => 'homepage']);
         return $response;
     }
 

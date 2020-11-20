@@ -10,7 +10,7 @@
               <small class="text-muted mr-1">30.09.20  Изображение: Алексей Таран</small>
             </a>
           </div>
-          <img class="contentClass" :src="basePicturePathPlaceholder" alt="">
+          <img class="contentClass" :src="getImgUrl(basePicturePathPlaceholder)" alt="">
         </div>
         
 
@@ -44,7 +44,12 @@ export default{
   props: ['basePicturePathPlaceholder',
           'descriptionFirstPlaceholder',
           'descriptionSecondPlaceholder'
-          ]
+          ],
+  methods:{
+        getImgUrl: function(picture) {
+            return picture === null ? picture : require('@/assets'+picture)
+        }
+  },
 }
 </script>
 

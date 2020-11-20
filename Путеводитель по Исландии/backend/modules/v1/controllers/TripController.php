@@ -34,22 +34,43 @@ class TripController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/trip/chapter?tripid=0
+     * http://127.0.0.1:1199/api/v1/trip/chapters
      */
-    public function actionChapter($tripid){
-        $tripName = Trip::findOne(['id' => $tripid])['name'];
-        $response = Chapter::findAll(['text' => $tripName]);
-        return $response;
+    public function actionChapters(){
+        $names = $this->actionNames();
+        $idArray = array();
+        foreach ($names as $idObject){
+            array_push($idArray, $idObject['id']);
+        }
+
+        $resultArray = array();
+        foreach ($idArray as $id){
+            $tripName = Trip::findOne(['id' => $id])['name'];
+            $response = Chapter::findOne(['text' => $tripName]);
+            array_push($resultArray, $response);
+        }
+        return $resultArray;
     }
 
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/trip/note?tripid=0
+     * http://127.0.0.1:1199/api/v1/trip/notes?trip=plane
      */
-    public function actionNote($tripid){
-        $tripName = Trip::findOne(['id' => $tripid])['name'];
-        $response = Note::findAll(['chapterText' => $tripName]);
+    public function actionNotes($trip){
+        $tripRus = '';
+        switch ($trip) {
+            case 'plane':
+                $tripRus = 'Самолет';
+                break;
+            case 'ferry':
+                $tripRus = 'Паром';
+                break;
+            case 'loanAuto':
+                $tripRus = 'Прокат авто';
+                break;
+        }
+        $response = Note::findAll(['chapterText' => $tripRus]);
         return $response;
     }
 
@@ -60,6 +81,15 @@ class TripController extends ApiController{
      */
     public function actionPhoto(){
         $response = Pagephoto::findAll(['namePage' => 'trip']);
+        return $response;
+    }
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/trip/mainphoto
+     */
+    public function actionMainphoto(){
+        $response = Pagephoto::findOne(['photo' => '@/assets/tripPageImages/tripPage0.jpg']);
         return $response;
     }
 }

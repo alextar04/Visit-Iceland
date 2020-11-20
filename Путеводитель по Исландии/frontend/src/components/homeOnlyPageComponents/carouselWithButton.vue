@@ -10,7 +10,7 @@
         <div v-for="content in listContentsPlaceholder" :key="content.id" :class="content.activeForFirst" style="height: 90vh">
           <div class="img-wrap">
             <img
-              :src="content.photoPath"
+              :src="getImgUrl(content.photoPath)"
               class="img-responsive"
               style="height: 90vh; width: 100%"
             />
@@ -50,7 +50,12 @@
 
 <script>
 export default{
-  props: ['listContentsPlaceholder']
+  props: ['listContentsPlaceholder'],
+  methods:{
+        getImgUrl: function(picture) {
+            return require('@/assets'+picture)
+        }
+    },
 }
 </script>
 

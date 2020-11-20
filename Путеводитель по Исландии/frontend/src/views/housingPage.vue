@@ -23,7 +23,7 @@
     <photo
         v-bind:photoPathPlaceholder="photo1"
     /><br>
-    <a id="#cemping"></a>
+    <a id="#kemping"></a>
     <sectionComponent 
         v-bind:nameSectionPlaceholder="nameSection2"
         v-bind:sectionStickerPlaceholder="sectionSticker2"
@@ -52,46 +52,29 @@ import startingImage from '@/components/commonComponents/startingImage.vue'
 import listChapters from '@/components/commonComponents/listChapters.vue'
 import sectionComponent from '@/components/attractionsOnlyPageComponents/sectionAttractionsPage.vue'
 import photo from '@/components/commonComponents/photo.vue'
+import Axios from 'axios'
+
 export default{
     data(){
       return{
-        listCity: [
-        {id: 0, name: "Рейкъявик"},
-        {id: 1, name: "Коупавогюр"},
-        {id: 2, name: "Хабнарфьодюр"},
-        {id: 3, name: "Акюрейри"},
-        {id: 4, name: "Кеблавик"},
-        ],
+        listCity: [],
         pageName: "Где жить",
-        startImagePath: require('@/assets/housingPageImages/housingImage0.jpg'),
+        startImagePath: null,
         generalNameChapters: "Виды жилья",
         generalLogoChapters: "fas fa-campground mr-2",
-        listChapters: [
-          {id: 0, text: "Отели", photoPath: require('@/assets/housingPageImages/housingImage1.jpg'), link: "/housing#hotel"},
-          {id: 1, text: "Кемпинги", photoPath: require('@/assets/housingPageImages/housingImage2.jpg'), link: "/housing#cemping"},
-          {id: 2, text: "Гостевые дома",  photoPath: require('@/assets/housingPageImages/housingImage3.jpg'), link: "/housing#guestHouse"},
-        ],
+        listChapters: [],
         nameSection1: "Отели",
         sectionSticker1: "fas fa-plane mr-2",
-        listTwoNotes1: [
-          {id: 0, text: "Самая известная гостиничная сеть — Fosshotel. Это 9 отелей, расположенных в разных частях Исландии, близ крупных городов и популярных туристических мест. Самой большой известностью пользуется отель Fosshotel Skaftafell, расположенный рядом с национальным парком Скафтафетль.", keyword:"Fosshotel Skaftafell", photoPath: require('@/assets/housingPageImages/housingImage1.jpg')},
-          {id: 1, text: "Еще одна цепочка — Icelandair, которая включает отели Edda, работающие только летом, и фешенебельные Icelandair. Последние расположены в крупных городах страны и славятся скандинавским стилем в интерьере и предлагаемой кухне. Самый известный из них — Nordica в Рейкьявике.", keyword:"фешенебельные Icelandair", photoPath: require('@/assets/housingPageImages/housingSub1.jpg')},
-        ],
-        photo1: require('@/assets/housingPageImages/housingImage1.jpg'),
+        listTwoNotes1: [],
+        photo1: null,
         nameSection2: "Кемпинги",
         sectionSticker2: "fas fa-campground mr-2",
-        listTwoNotes2: [
-          {id: 0, text: "Цена на кемпинг состоит из нескольких составляющих в первую очередь это каждый человек, который останавливается в кемпинге. Не количество палаток, а именно количество человек. Стоимость на одного человека колеблется от 1000 ISK до 2000 ISK (примерно 10-20$). Отдельная оплата за палатку чаще всего отсутствует.", keyword:"1000 ISK до 2000 ISK", photoPath: require('@/assets/housingPageImages/housingSub2.jpg')},
-          {id: 1, text: "Также, чаще всего, дополнительно придется заплатить за горячий душ - около 300-350 ISK с человека. Хотя в некоторых кемпингах душ бесплатный. Во всех кемпингах есть парковка, где можно поставить машину и это входит в стоимость проживания в кемпинге.", keyword:"300-350 ISK", photoPath: require('@/assets/tripPageImages/tripPageSub3.jpg')},
-        ],
-        photo2: require('@/assets/housingPageImages/housingImage2.jpg'),
+        listTwoNotes2: [],
+        photo2: null,
         nameSection3: "Гостевые дома",
         sectionSticker3: "fas fa-home mr-2",
-        listTwoNotes3: [
-            {id: 0, text: "Гостевые дома в Исландии – очень популярный вид проживания. Есть небольшие домики, в которые можно заселиться большой компанией, без соседей. Гестхаусы здесь занимают переходное положение между дорогими отелями и дешевыми хостелами.", keyword:"небольшие домики", photoPath: require('@/assets/housingPageImages/housingSub3.jpg')},
-            {id: 1, text: "Большинство гостевых домов расположены в пригородах, в непосредственной близости от природных достопримечательностей. Здесь же можно распробовать блюда национальной кухни или, выбрав вариант с собственной кухней, готовить себе самостоятельно.", keyword:"непосредственной близости от природных достопримечательностей", photoPath: require('@/assets/housingPageImages/housingImage3.jpg')},
-        ],
-        photo3: require('@/assets/housingPageImages/housingImage3.jpg'),
+        listTwoNotes3: [],
+        photo3: null,
       }
     },
     computed: {
@@ -103,8 +86,18 @@ export default{
       }
       return array
     }},
-  methods:{
-     setPageName: function(pagename){}
+  created(){
+    const instance = Axios.create({
+      baseURL: 'http://127.0.0.1:1199/api/v1'
+    })
+
+    instance.get('/city/names').then((response) => this.listCity = response.data)
+    this.getStartImagePath(instance)
+    this.getHousingChapters(instance)
+    this.getListNotes(instance, 'hotels')
+    this.getListNotes(instance, 'kempings')
+    this.getListNotes(instance, 'guest houses')
+    this.getPhotos(instance)
   },
   components: {
     headerComponent,
@@ -113,6 +106,68 @@ export default{
     listChapters,
     sectionComponent,
     photo,
+  },
+  methods: {
+    setPageName: function(pagename){},
+
+    getStartImagePath: function(instance){
+      var thisEnv = this
+      instance.get('/housing/mainphoto').then(function(mainphoto){
+              thisEnv.startImagePath = mainphoto.data.photo.split("@/assets")[1]
+          })
+    },
+
+      getHousingChapters: function(instance){
+      var thisEnv = this
+      var result = []
+      var responseChapterList = []
+      instance.get('/housing/chapters').then(function(responseHousing){
+          responseChapterList = responseHousing.data
+          // Обработка данных для каждого раздела
+          responseChapterList.forEach((chapter) => {
+                chapter.photoPath = chapter.photoPath.split("@/assets")[1]
+                result.push(chapter)
+              })
+              thisEnv.listChapters = result
+          })
+    },
+
+    getListNotes: function(instance, nameChapter){
+        var thisEnv = this
+        var result = []
+        instance.get('/housing/notes?housing='+nameChapter).then(function(responseNote){
+          var dataResponseNote = responseNote.data
+          // Обработка данных для каждого раздела
+          dataResponseNote.forEach((note) => {
+                note.photoPath = note.photoPath.split("@/assets")[1]
+                result.push(note)
+              })
+              //console.log(result)
+              switch (nameChapter){
+                case 'hotels':
+                    thisEnv.listTwoNotes1 = result
+                    break;
+                case 'kempings':
+                    thisEnv.listTwoNotes2 = result
+                    break;
+                case 'guest houses':
+                    thisEnv.listTwoNotes3 = result
+                    break;
+              }
+          })
+    },
+
+    getPhotos: function(instance){
+        var thisEnv = this
+        instance.get('housing/photos').then(function(photos){
+              let dataPhoto = photos.data
+              thisEnv.photo1 = dataPhoto[1].photo.split("@/assets")[1]
+              thisEnv.photo2 = dataPhoto[2].photo.split("@/assets")[1]
+              thisEnv.photo3 = dataPhoto[3].photo.split("@/assets")[1]
+        })
+    }
+
+
   }
 }
 </script>

@@ -34,32 +34,63 @@ class KitchenController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/kitchen/chapter?kitchenid=0
+     * http://127.0.0.1:1199/api/v1/kitchen/chapters
      */
-    public function actionChapter($kitchenid){
-        $kitchenName = Kitchen::findOne(['id' => $kitchenid])['name'];
-        $response = Chapter::findAll(['text' => $kitchenName]);
+    public function actionChapters(){
+        $names = $this->actionNames();
+        $idArray = array();
+        foreach ($names as $idObject){
+            array_push($idArray, $idObject['id']);
+        }
+
+        $resultArray = array();
+        foreach ($idArray as $id){
+            $kitchenName = Kitchen::findOne(['id' => $id])['name'];
+            $response = Chapter::findOne(['text' => $kitchenName]);
+            array_push($resultArray, $response);
+        }
+        return $resultArray;
+    }
+
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/kitchen/notes?kitchen=streetfood
+     */
+    public function actionNotes($kitchen){
+        $kitchenRus = '';
+        switch ($kitchen) {
+            case 'streetfood':
+                $kitchenRus = 'Стритфуд';
+                break;
+            case 'cafe':
+                $kitchenRus = 'Рестораны/кафе';
+                break;
+            case 'bars':
+                $kitchenRus = 'Бары';
+                break;
+        }
+        $response = Note::findAll(['chapterText' => $kitchenRus]);
         return $response;
     }
 
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/kitchen/note?kitchenid=0
+     * http://127.0.0.1:1199/api/v1/kitchen/photos
      */
-    public function actionNote($kitchenid){
-        $kitchenName = Kitchen::findOne(['id' => $kitchenid])['name'];
-        $response = Note::findAll(['chapterText' => $kitchenName]);
-        return $response;
-    }
-
-
-    /**
-     * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/kitchen/photo
-     */
-    public function actionPhoto(){
+    public function actionPhotos(){
         $response = Pagephoto::findAll(['namePage' => 'kitchen']);
         return $response;
     }
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/housing/mainphoto
+     */
+    public function actionMainphoto(){
+        $response = Pagephoto::findOne(['photo' => '@/assets/kitchenPageImages/kitchenPage0.jpg']);
+        return $response;
+    }
+
 }

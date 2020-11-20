@@ -8,7 +8,7 @@
     >
       <div class="carousel-inner">
           <div v-for="content in listPhotosPathPlaceholder" :key="content.id" :class="content.activeForFirst">
-            <img class="d-block w-100" :src="content.photoPath" alt="Third slide">
+            <img class="d-block w-100" :src="getImgUrl(content.photoPath)" alt="Third slide">
           </div>
       </div>
 
@@ -36,7 +36,12 @@
 
 <script>
 export default{
-  props: ['listPhotosPathPlaceholder', 'id']
+  props: ['listPhotosPathPlaceholder', 'id'],
+  methods:{
+        getImgUrl: function(picture) {
+            return require('@/assets'+picture)
+        }
+  },
 }
 </script>
 

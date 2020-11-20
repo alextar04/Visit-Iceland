@@ -35,32 +35,63 @@ class HousingController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/housing/chapter?housingid=0
+     * http://127.0.0.1:1199/api/v1/housing/chapters
      */
-    public function actionChapter($housingid){
-        $housingName = Housing::findOne(['id' => $housingid])['name'];
-        $response = Chapter::findAll(['text' => $housingName]);
+    public function actionChapters(){
+        $names = $this->actionNames();
+        $idArray = array();
+        foreach ($names as $idObject){
+            array_push($idArray, $idObject['id']);
+        }
+
+        $resultArray = array();
+        foreach ($idArray as $maincontentid){
+            $housingName = Housing::findOne(['id' => $maincontentid])['name'];
+            $response = Chapter::findOne(['text' => $housingName]);
+            array_push($resultArray, $response);
+        }
+        return $resultArray;
+    }
+
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/housing/notes?housing=hotels
+     */
+    public function actionNotes($housing){
+        $housingRus = '';
+        switch ($housing) {
+            case 'hotels':
+                $housingRus = 'Отели';
+                break;
+            case 'kempings':
+                $housingRus = 'Кемпинги';
+                break;
+            case 'guest houses':
+                $housingRus = 'Гостевые дома';
+                break;
+        }
+        $response = Note::findAll(['chapterText' => $housingRus]);
         return $response;
     }
 
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/housing/note?housingid=0
+     * http://127.0.0.1:1199/api/v1/housing/photos
      */
-    public function actionNote($housingid){
-        $housingName = Housing::findOne(['id' => $housingid])['name'];
-        $response = Note::findAll(['chapterText' => $housingName]);
-        return $response;
-    }
-
-
-    /**
-     * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/housing/photo
-     */
-    public function actionPhoto(){
+    public function actionPhotos(){
         $response = Pagephoto::findAll(['namePage' => 'housing']);
         return $response;
     }
+
+    /**
+     * Пример запроса:
+     * http://127.0.0.1:1199/api/v1/housing/mainphoto
+     */
+    public function actionMainphoto(){
+        $response = Pagephoto::findOne(['photo' => '@/assets/housingPageImages/housingImage0.jpg']);
+        return $response;
+    }
+
 }

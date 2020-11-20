@@ -52,46 +52,29 @@ import startingImage from '@/components/commonComponents/startingImage.vue'
 import listChapters from '@/components/commonComponents/listChapters.vue'
 import sectionComponent from '@/components/attractionsOnlyPageComponents/sectionAttractionsPage.vue'
 import photo from '@/components/commonComponents/photo.vue'
+import Axios from 'axios'
+
 export default{
     data(){
       return{
-        listCity: [
-        {id: 0, name: "Рейкъявик"},
-        {id: 1, name: "Коупавогюр"},
-        {id: 2, name: "Хабнарфьодюр"},
-        {id: 3, name: "Акюрейри"},
-        {id: 4, name: "Кеблавик"},
-        ],
+        listCity: [],
         pageName: "Как добраться",
-        startImagePath: require('@/assets/tripPageImages/tripPage0.jpg'),
+        startImagePath: null,
         generalNameChapters: "Виды транспорта",
         generalLogoChapters: "fas fa-car mr-2",
-        listChapters: [
-          {id: 0, text: "Самолет", photoPath: require('@/assets/tripPageImages/tripPage1.jpg'), link: "/trip#plane"},
-          {id: 1, text: "Паром", photoPath: require('@/assets/tripPageImages/tripPage2.jpeg'), link: "/trip#ferry"},
-          {id: 2, text: "Прокат авто",  photoPath: require('@/assets/tripPageImages/tripPage3.png'), link: "/trip#loanAuto"},
-        ],
+        listChapters: [],
         nameSection1: "Самолет",
         sectionSticker1: "fas fa-plane mr-2",
-        listTwoNotes1: [
-          {id: 0, text: "Если вы живете в Москве, то самый простой и очевидный вариант проезда до исландской столицы Рейкьявик – самолет. Стоимость авиабилета на прямой рейс Москва – Рейкьявик от €284 в две стороны. Рейсы компании С7 «Сибирь» из московского аэропорта Домодедово в аэропорт Рейкьявика – Кефлавик выполняются 6 раз в неделю.", keyword:"Сибирь", photoPath: require('@/assets/tripPageImages/tripPage1.jpg')},
-          {id: 1, text: "Помимо прямого рейса, из Москвы или Санкт-Петербурга в Рейкьявик можно добраться с пересадкой в Прибалтике – Риге, Вильнюсе или Хельсинки. Зачастую цена билета с пересадкой выйдет дешевле билета на прямой рейс. Стоимость авиабилета с пересадкой Москва – Хельсинки – Рейкьявик составит от €173 в две стороны. Перелет из Хельсинки выполняет компания Finnair.", keyword:"€173", photoPath: require('@/assets/tripPageImages/tripPageSub1.jpg')},
-        ],
-        photo1: require('@/assets/tripPageImages/tripPage1.jpg'),
+        listTwoNotes1: [],
+        photo1: null,
         nameSection2: "Паром",
         sectionSticker2: "fas fa-ship mr-2",
-        listTwoNotes2: [
-          {id: 0, text: "Если вы ищете приключений и располагаете большим количеством свободного времени, и у вас нет морской болезни, можете отправиться в Исландию на пароме.", keyword:"морской болезни", photoPath: require('@/assets/tripPageImages/tripPage4.jpg')},
-          {id: 1, text: "После приезда в Данию начинается самая интересная часть путешествия – вам надо добраться до порта Хиртсхальс (Hirtshals). Время в пути из порта Хиртсхальс (Hirtshals) в Дании до порта Сейдисфьордюр (Seyðisfjörður) в восточной части Исландии – около 2 суток. Перевозки осуществляет паромная компания Smyril Line, которая предоставляет возможность проезда с собственным автомобилем.", keyword:"до порта Хиртсхальс", photoPath: require('@/assets/tripPageImages/tripPageSub3.jpg')},
-        ],
-        photo2: require('@/assets/tripPageImages/tripPage4.jpg'),
+        listTwoNotes2: [],
+        photo2: null,
         nameSection3: "Прокат авто",
         sectionSticker3: "fas fa-car mr-2",
-        listTwoNotes3: [
-            {id: 0, text: "Итак, самыми бюджетными на рынке автопроката Исландии остаются авто класса мини — от 68 EUR за день пользования. Компактные автомобили и универсалы стоят порядка 77—150 EUR, внедорожники и мини-вэны — 150—630 EUR и т. д.", keyword:"Исландии", photoPath: require('@/assets/tripPageImages/tripPage3.png')},
-            {id: 1, text: "В стоимость аренды, как правило, включают нелимитированный пробег в пределах страны, страховку на случай угона и ДТП, круглосуточное информационное обслуживание от компании.", keyword:"стоимость", photoPath: require('@/assets/tripPageImages/tripPageSub5.jpg')},
-        ],
-        photo3: require('@/assets/tripPageImages/tripPage3.png'),
+        listTwoNotes3: [],
+        photo3: null,
       }
     },
     computed: {
@@ -103,8 +86,79 @@ export default{
       }
       return array
     }},
+
+  created(){
+    const instance = Axios.create({
+      baseURL: 'http://127.0.0.1:1199/api/v1'
+    })
+
+    instance.get('/city/names').then((response) => this.listCity = response.data)
+    this.getStartImagePath(instance)
+    this.getTripChapters(instance)
+    this.getListNotes(instance, 'plane')
+    this.getListNotes(instance, 'ferry')
+    this.getListNotes(instance, 'loanAuto')
+    this.getPhotos(instance)
+  },
+
   methods:{
-     setPageName: function(pagename){}
+     setPageName: function(pagename){},
+
+     getStartImagePath: function(instance){
+        var thisEnv = this
+        instance.get('/trip/mainphoto').then(function(mainphoto){
+                thisEnv.startImagePath = mainphoto.data.photo.split("@/assets")[1]
+            })
+    },
+
+     getTripChapters: function(instance){
+      var thisEnv = this
+      var result = []
+      var responseChapterList = []
+      instance.get('/trip/chapters').then(function(responseTrip){
+          responseChapterList = responseTrip.data
+          // Обработка данных для каждого раздела
+          responseChapterList.forEach((chapter) => {
+                chapter.photoPath = chapter.photoPath.split("@/assets")[1]
+                result.push(chapter)
+              })
+              thisEnv.listChapters = result
+          })
+    },
+
+    getListNotes: function(instance, nameChapter){
+        var thisEnv = this
+        var result = []
+        instance.get('/trip/notes?trip='+nameChapter).then(function(responseNote){
+          var dataResponseNote = responseNote.data
+          // Обработка данных для каждого раздела
+          dataResponseNote.forEach((note) => {
+                note.photoPath = note.photoPath.split("@/assets")[1]
+                result.push(note)
+              })
+              switch (nameChapter){
+                case 'plane':
+                    thisEnv.listTwoNotes1 = result
+                    break;
+                case 'ferry':
+                    thisEnv.listTwoNotes2 = result
+                    break;
+                case 'loanAuto':
+                    thisEnv.listTwoNotes3 = result
+                    break;
+              }
+          })
+    },
+
+    getPhotos: function(instance){
+        var thisEnv = this
+        instance.get('kitchen/photos').then(function(photos){
+              let dataPhoto = photos.data
+              thisEnv.photo1 = dataPhoto[1].photo.split("@/assets")[1]
+              thisEnv.photo2 = dataPhoto[4].photo.split("@/assets")[1]
+              thisEnv.photo3 = dataPhoto[3].photo.split("@/assets")[1]
+        })
+    }
   },
   components: {
     headerComponent,
