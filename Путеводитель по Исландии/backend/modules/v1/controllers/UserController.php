@@ -52,7 +52,7 @@ class UserController extends ApiController
         $user = User::findOne(['login' => $login]);
         if ($user != null){
             return [
-                'status' => "Пользователь с таким логином уже существует"
+                'statusText' => "Пользователь с таким логином уже существует"
             ];
         }
 
@@ -71,7 +71,7 @@ class UserController extends ApiController
         }
         $model->save();
 
-        return $model;
+        return $model->accessToken;
     }
 
     /**

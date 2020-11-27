@@ -5,7 +5,7 @@
         
         <div>
           <img src="@/assets/icelandFlag.png" width="70" height="35">
-          <router-link onClick={this.forceUpdate} to="/"><button type="button" class="btn btn-link shadow-none">ПУТЕВОДИТЕЛЬ<br>ПО ИСЛАНДИИ</button></router-link>
+          <router-link to="/"><button type="button" class="btn btn-link shadow-none">ПУТЕВОДИТЕЛЬ<br>ПО ИСЛАНДИИ</button></router-link>
         </div>
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-city mr-2"></i>Города</a>
               <div class="dropdown-menu adaptiveSize">
                 <div v-for="city in listCityPlaceholder" :key="city.id">
-                    <button class="dropdown-item" type="button"><router-link onClick={this.forceUpdate} class="linkClass" :to="city.name">{{ city.name }}</router-link></button>
+                    <button class="dropdown-item" type="button"><router-link onClick={this.forceUpdate} class="linkClass" :to="city.engName">{{ city.name }}</router-link></button>
                 </div>
               </div>
             </li>

@@ -8,6 +8,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name Название
+ * @property string $engName Латинское название
  */
 class City extends \yii\db\ActiveRecord
 {
@@ -25,8 +26,8 @@ class City extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name'], 'required'],
-            [['name'], 'string', 'max' => 128],
+            [['id', 'name', 'engName'], 'required'],
+            [['name', 'engName'], 'string', 'max' => 128],
         ];
     }
 
@@ -38,6 +39,7 @@ class City extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
+            'engName' => 'Латинское название'
         ];
     }
 }

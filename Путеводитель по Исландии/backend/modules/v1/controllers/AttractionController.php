@@ -6,6 +6,7 @@ use app\modules\v1\models\Chapter;
 use app\modules\v1\models\Note;
 use app\modules\v1\models\PagePhoto;
 use app\modules\v1\models\Comment;
+use app\modules\v1\models\User;
 use Yii;
 
 
@@ -36,22 +37,31 @@ class AttractionController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/chapter?attractionid=0
+     * http://127.0.0.1:1199/api/v1/attraction/chapters
      */
-    public function actionChapter($attractionid){
-        $attractionName = Attraction::findOne(['id' => $attractionid])['name'];
-        $response = Chapter::findAll(['text' => $attractionName]);
-        return $response;
+    public function actionChapters(){
+        $names = $this->actionNames();
+        $idArray = array();
+        foreach ($names as $idObject){
+            array_push($idArray, $idObject['id']);
+        }
+
+        $resultArray = array();
+        foreach ($idArray as $attractionid){
+            $attractionName = Attraction::findOne(['id' => $attractionid])['name'];
+            $response = Chapter::findOne(['text' => $attractionName]);
+            array_push($resultArray, $response);
+        }
+        return $resultArray;
     }
 
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/note?attractionid=0
+     * http://127.0.0.1:1199/api/v1/attraction/note?attractionname=Хейкадалюр 
      */
-    public function actionNote($attractionid){
-        $chaptername = Attraction::findOne(['id' => $attractionid])['name'];
-        $response = Note::findOne(['chapterText' => $chaptername]);
+    public function actionNote($attractionname){
+        $response = Note::findOne(['chapterText' => $attractionname]);
         return $response;
     }
 
@@ -61,40 +71,58 @@ class AttractionController extends ApiController{
      * http://127.0.0.1:1199/api/v1/attraction/photo
      */
     public function actionPhoto(){
-        $response = Pagephoto::findAll(['namePage' => 'attractions']);
+        $allPhotos = Pagephoto::findAll(['namePage' => 'attraction']);
+
+        $response = array();
+        foreach ($allPhotos as $photo){
+            if (str_replace('Content', '', $photo['photo']) != $photo['photo']){
+                array_push($response, $photo);
+            }
+        }
+
         return $response;
     }
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/comment?id=0
+     * http://127.0.0.1:1199/api/v1/attraction/comments
      */
-    public function actionComment($id){
-        $response = Comment::findOne(['id' => $id]);
+    public function actionComments(){
+        $response = Comment::find()->orderBy('date DESC')->all();
         return $response;
     }
 
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/edit_comment?id=0&text=sometext
+     * http://127.0.0.1:1199/api/v1/attraction/edit_comment?accesstoken=6178217fa7823c6070b4&id=0&text=sometext
      */
-    public function actionEdit_comment($id, $text){
-        $comment = Comment::findOne(['id' => $id]);
-        $comment->text = $text;
-        $comment->date = Yii::$app->formatter->asDatetime('now', 'php:Y-m-d H:i:s');
-        $comment->save();
-        return $comment;
+    public function actionEdit_comment($accesstoken, $id, $text){
+        $user = User::findOne(['accessToken' => $accesstoken]);
+
+        if ($user != null){
+            $comment = Comment::findOne(['id' => $id]);
+            $username = $user['login'];
+            if ($username == $comment['username']){
+                $comment->text = $text;
+                $comment->save();
+                return $comment;
+            } 
+        }
+        
+        $response = ['data' => null];
+        return $response;
     }
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/new_comment?username=alexey&text=sometext
+     * http://127.0.0.1:1199/api/v1/attraction/new_comment?accesstoken=6178217fa7823c6070b4&text=sometext
      */
-    public function actionNew_comment($username, $text){
+    public function actionNew_comment($accesstoken, $text){
+        $username = User::findOne(['accessToken' => $accesstoken])['login'];
         $comment = new Comment();
         $comment->username = $username;
-        $comment->date = Yii::$app->formatter->asDatetime('now', 'php:Y-m-d H:i:s');
+        $comment->date = Yii::$app->formatter->asDatetime(time() + 60*60*3, 'php:Y-m-d H:i:s');
         $comment->text = $text;
         $comment->save();
         return $comment;
@@ -103,11 +131,22 @@ class AttractionController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/delete_comment?id=0
+     * http://127.0.0.1:1199/api/v1/attraction/delete_comment?accesstoken=6178217fa7823c6070b4&id=0
      */
-    public function actionDelete_comment($id){
-        $comment = Comment::findOne(['id' => $id]);
-        $comment->delete();
+    public function actionDelete_comment($accesstoken, $id){
+        $user = User::findOne(['accessToken' => $accesstoken]);
+
+        if ($user != null){
+            $comment = Comment::findOne(['id' => $id]);
+            $username = $user['login'];
+            if ($username == $comment['username']){
+                $comment->delete();
+                return ['status' => "success"];
+            } 
+        }
+        
+        $response = ['status' => null];
+        return $response;
     }
 
 

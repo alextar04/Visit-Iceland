@@ -10,7 +10,7 @@
             </div>
             <div class="card-footer">
                 <small class="text-muted">
-                    <button type="submit" class="btn btn-outline-secondary" style="margin: 5px 5px 5px 5px">Добавить</button>
+                    <button type="submit" class="btn btn-outline-secondary" id="addButton" style="margin: 5px 5px 5px 5px">Добавить</button>
                 </small>
             </div>
         </div>
@@ -18,8 +18,8 @@
         </form>
         </div>
         <comment
-            v-for="comment in commentsList"
-            v-bind:comment="comment"
+            v-for="oneComment in commentsList"
+            v-bind:comment="oneComment"
             v-on:remove-comment="removeComment"
             v-on:update-comment="updateComment"
         />
@@ -48,7 +48,7 @@ export default{
             this.$emit('update-comment', id, text)
         },
         addNewComment(){
-            if (this.text === ""){
+            if (this.text.trim() === ""){
                 this.error = "Пустой текст"
                 return
             }
@@ -56,17 +56,17 @@ export default{
                 this.error = "Выполните вход в систему"
                 return
             }
+                this.$emit('add-comment', this.text)
                 this.text = ""
                 this.error = ""
-                this.$emit('add-comment', this.text)
         },
         getSignInStatus(){
-        if (localStorage.getItem('user') === null){
-            return "Войти"
-        }else{
-            let email = JSON.parse(localStorage.getItem('user')).email
-            return email
-        }
+            if (localStorage.getItem('user') === null){
+                return "Войти"
+            }else{
+                let email = JSON.parse(localStorage.getItem('user')).email
+                return email
+            }
         },
     }
 }

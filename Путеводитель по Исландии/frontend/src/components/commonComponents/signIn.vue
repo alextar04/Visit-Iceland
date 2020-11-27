@@ -28,18 +28,23 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">Email</label>
                   <input type="email" class="form-control" v-model="email" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;" aria-describedby="emailHelp" placeholder="Введите Email">
-                  <div class="error">{{errors.email}}</div>
+                  <div class="error" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; margin-top: 10px">{{errors.email}}</div>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">Пароль</label>
                   <input type="password" class="form-control" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;" v-model="password" placeholder="Введите пароль">
-                  <div class="error">{{errors.password}}</div>
+                  <div class="error" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; margin-top: 10px">{{errors.password}}</div>
                 </div>
 
                 <div class="row" style="font-weight: normal; text-transform: initial; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">
-                  <div class="custom-control custom-radio col">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">Зарегестрироваться</label>
+
+                  <div class="col-sm-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck1">
+                      <label class="form-check-label" for="gridCheck1" style="font-weight: normal; text-transform: initial; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">
+                        Зарегестрироваться
+                      </label>
+                    </div>
                   </div>
 
                   <div class="col">
@@ -76,6 +81,8 @@
 
 <script>
 import User from '@/components/commonComponents/user.vue'
+import Axios from 'axios'
+
 export default{
   data() {
       return {
@@ -86,16 +93,73 @@ export default{
     },
     methods: {
       signIn(e) {
+        let thisEnv = this
         if (this.validate()) {
-          // SEND Ajax запрос
-          User.login({
-            email: this.email,
-            accessToken: 'ksdjflksjdflkjdslkfj!#'
+          
+          if (this.needRegistration()){
+              this.signUp(e)
+              return
+          }
+
+          const instance = Axios.create({
+              baseURL: 'http://127.0.0.1:1199/api/v1'
+          })
+          var token = null
+          instance.get('/user/signin?login='+thisEnv.email+'&password='+thisEnv.password).then(function(responseToken){
+              token = responseToken.data
+
+              if (token != false){
+                  User.login({
+                    email: thisEnv.email,
+                    accessToken: token
+                  })
+
+                  e.preventDefault()
+                  thisEnv.$forceUpdate()
+                  thisEnv.parentRefresh()
+              } else {
+                  thisEnv.errors.email = 'Введены неверные данные'
+                  thisEnv.errors.password = ''
+                  thisEnv.password = ''
+                  e.preventDefault()
+               }
           })
         }
-        e.preventDefault();
-        this.parentRefresh()
       },
+
+      needRegistration(){
+        return(document.getElementById('gridCheck1').checked)
+      },
+
+      signUp(e){
+          let thisEnv = this
+          var token = null
+          const instance = Axios.create({
+              baseURL: 'http://127.0.0.1:1199/api/v1'
+          })
+
+          instance.get('/user/signup?login='+thisEnv.email+'&password='+thisEnv.password).then(function(responseToken){
+              token = responseToken.data.token
+
+              if (responseToken.data.statusText == undefined){
+                  User.login({
+                    email: thisEnv.email,
+                    accessToken: token
+                  })
+
+                  e.preventDefault()
+                  thisEnv.$forceUpdate()
+                  thisEnv.parentRefresh()
+              } else {
+                  thisEnv.errors.email = 'Пользователь с таким логином уже существует!'
+                  thisEnv.errors.password = ''
+                  thisEnv.password = ''
+                  document.getElementById('gridCheck1').checked = false
+                  e.preventDefault()
+               }
+          })
+      },
+
       validate() {
         this.errors = {}
         if (this.email.trim().length === 0) {
@@ -106,11 +170,26 @@ export default{
         }
         return Object.keys(this.errors).length === 0
       },
+
+
     logout() {
-        User.logout()
-        this.$forceUpdate()
-        this.parentRefresh()
-      },
+      let thisEnv = this
+      const instance = Axios.create({
+            baseURL: 'http://127.0.0.1:1199/api/v1'
+      })
+      let token = JSON.parse(localStorage.getItem('user')).accessToken
+
+      instance.get('/user/exit?token='+token).then(function(response){
+            if (response.data.accessToken == null){
+                User.logout()
+                thisEnv.password = ''
+                thisEnv.$forceUpdate()
+                thisEnv.parentRefresh()
+            }
+      })
+    },
+
+
     getSignInStatus(){
       if (localStorage.getItem('user') === null){
         return "Войти"

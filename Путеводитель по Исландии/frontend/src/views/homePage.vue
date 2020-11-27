@@ -118,7 +118,7 @@ export default{
       instance.get('/maincontent/photo').then(function(startPhotos){
         responseListContents = startPhotos.data
         responseListContents.forEach((photoWithLink) => {
-          if (photoWithLink.text != null){
+          if (photoWithLink.text != ""){
             photoWithLink.photoPath = photoWithLink.photo.split("@/assets")[1]
             delete photoWithLink.photo
             if (responseListContents.indexOf(photoWithLink) == 0){
@@ -143,7 +143,7 @@ export default{
           instance.get('maincontent/photo').then(function(photos){
               var responseListPhotos = photos.data
               responseListPhotos = responseListPhotos.filter(function(photo){
-                return photo.text == null
+                return photo.text == ""
               })
               thisEnv.basePicturePath = responseListPhotos[0].photo.split("@/assets")[1]
           })
@@ -158,7 +158,7 @@ export default{
         responseListPhotos = photos.data
 
         responseListPhotos = responseListPhotos.filter(function(photo){
-          return photo.text == null
+          return photo.text == ""
         })
 
         responseListPhotos.shift()

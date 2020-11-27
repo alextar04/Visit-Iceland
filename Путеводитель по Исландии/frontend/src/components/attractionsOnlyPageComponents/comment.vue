@@ -5,20 +5,15 @@
                 <h6 class="card-text">{{ comment.username }}</h6>
 
                 <h6 class="card-text"><small class="text-muted">{{ comment.date }}</small></h6>
-                <a v-if="changeMode == true">{{ fillTextExported() }}</a>
-                <textarea v-if="changeMode == true" v-model="textExported" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ textExported }}</textarea>
+                <a v-if="comment.changeMode == true">{{ fillTextExported() }}</a>
+                <textarea v-if="comment.changeMode == true" v-model="comment.textExported" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ comment.textExported }}</textarea>
                 <a v-else class="card-text" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; letter-spacing: 0px;">{{ comment.text }}</a>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" v-if="checkCommentHolder()">
                 <small class="text-muted">
-                    <!--
-                    <a v-if="checkCommentHolder()" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; letter-spacing: 0px;"><button v-if="changeMode == false" type="button" v-on:click="setChangeMode()" class="btn btn-outline-secondary" style="margin: 5px 5px 5px 5px">Изменить</button></a>
-                    <a v-if="checkCommentHolder()" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; letter-spacing: 0px;"><button v-if="changeMode" type="button" v-on:click="updateComment(comment.id, textExported)" class="btn btn-outline-success" style="margin: 5px 5px 5px 5px">Применить</button></a>
+                    <a v-if="checkCommentHolder()" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; letter-spacing: 0px;"><button v-if="comment.changeMode == false" type="button" v-on:click="setChangeMode()" class="btn btn-outline-secondary" style="margin: 5px 5px 5px 5px">Изменить</button></a>
+                    <a v-if="checkCommentHolder()" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; letter-spacing: 0px;"><button v-if="comment.changeMode" type="button" v-on:click="updateComment(comment.id, comment.textExported)" class="btn btn-outline-success" style="margin: 5px 5px 5px 5px">Применить</button></a>
                     <a v-if="checkCommentHolder()" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; letter-spacing: 0px;"><button type="button" v-on:click="$emit('remove-comment', comment.id)" class="btn btn-outline-danger" style="margin: 5px 5px 5px 5px">Удалить</button></a>
-                    -->
-                    <button v-if="changeMode == false" type="button" v-on:click="setChangeMode()" class="btn btn-outline-secondary" style="margin: 5px 5px 5px 5px">Изменить</button>
-                    <button v-if="changeMode" type="button" v-on:click="updateComment(comment.id, textExported)" class="btn btn-outline-success" style="margin: 5px 5px 5px 5px">Применить</button>
-                    <button type="button" v-on:click="$emit('remove-comment', comment.id)" class="btn btn-outline-danger" style="margin: 5px 5px 5px 5px">Удалить</button>
                 </small>
             </div>
         </div>
@@ -29,36 +24,37 @@
 <script>
 export default{
     data(){
-        return {
-            changeMode: false,
-            textExported: ''
-        }
+        return {}
     },
     props: ['comment'],
     methods:{
         setChangeMode(){
-            this.changeMode = true
+            this.comment.changeMode = true
         },
         updateComment(id, textExported){
+            if (textExported.trim() == ''){
+                textExported = "Напишу комментарий позднее!"
+            }
             this.$emit('update-comment', id, textExported)
-            this.changeMode = false
+            this.comment.changeMode = false
         },
         fillTextExported(){
-            if (this.textExported == ''){
-                this.textExported = this.comment.text
+            if ((this.comment.textExported == '') && (this.comment.firstRender == true)){
+                this.comment.textExported = this.comment.text
+                this.comment.firstRender = false
             }
         },
         checkCommentHolder(){
             return (this.comment.username === this.getSignInStatus())
         },
         getSignInStatus(){
-        if (localStorage.getItem('user') === null){
-            return "Войти"
-        }else{
-            let email = JSON.parse(localStorage.getItem('user')).email
-            return email
-        }
-        }
+            if (localStorage.getItem('user') === null){
+                return "Войти"
+            }else{
+                let email = JSON.parse(localStorage.getItem('user')).email
+                return email
+            }
+        },
     }
 }
 </script>

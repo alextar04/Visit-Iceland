@@ -30,6 +30,20 @@
     text-decoration: none;
 }
 
+.btn.btn-outline-secondary:active,
+.btn.btn-outline-secondary:hover,
+.btn.btn-outline-secondary:focus {
+  background-color: transparent !important;
+  color: grey;
+}
+
+.btn.btn-outline-danger:active,
+.btn.btn-outline-danger:hover,
+.btn.btn-outline-danger:focus{
+  background-color: transparent !important;
+  color: red;
+}
+
 div.adaptiveSize{
 }
 
