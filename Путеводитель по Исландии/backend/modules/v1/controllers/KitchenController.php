@@ -86,7 +86,7 @@ class KitchenController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/housing/mainphoto
+     * http://127.0.0.1:1199/api/v1/kitchen/mainphoto
      */
     public function actionMainphoto(){
         $response = Pagephoto::findOne(['photo' => '@/assets/kitchenPageImages/kitchenPage0.jpg']);

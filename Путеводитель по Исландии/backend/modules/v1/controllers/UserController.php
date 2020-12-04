@@ -17,6 +17,7 @@ class UserController extends ApiController
         return $response;
     }
 
+    
     /**
      * Пример запроса:
      * http://127.0.0.1:1199/api/v1/user/signin?login=alexey&password=qqwer
@@ -43,6 +44,7 @@ class UserController extends ApiController
 
         return $user->accessToken;
     }
+
 
     /**
      * Пример запроса:
@@ -73,6 +75,7 @@ class UserController extends ApiController
 
         return $model->accessToken;
     }
+
 
     /**
      * Пример запроса:

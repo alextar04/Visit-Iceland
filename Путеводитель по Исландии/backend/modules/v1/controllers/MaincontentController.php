@@ -83,7 +83,6 @@ class MaincontentController extends ApiController{
         return $response;
     }
 
-
     /**
      * Пример запроса:
      * http://127.0.0.1:1199/api/v1/maincontent/getvideo
