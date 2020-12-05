@@ -43,4 +43,16 @@ class User extends \yii\db\ActiveRecord
             'password' => 'Пароль',
         ];
     }
+
+    // Перед сохранением модели, создать хэш для пароля
+    public function beforeSave($insert){
+        if (parent::beforeSave($insert)){
+            // Сгенерировать хэш пароля для нового пользователя 
+            if ($insert){
+                $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
+            }
+            return true;
+        }
+        return false;
+    }
 }

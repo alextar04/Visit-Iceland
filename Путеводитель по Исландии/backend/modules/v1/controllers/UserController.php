@@ -20,12 +20,26 @@ class UserController extends ApiController
     
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/user/signin?login=alexey&password=qqwer
+     * POST http://127.0.0.1:1199/api/v1/user/signin
+     * body:{
+     * "login": "alexey",
+     * "password": 12345
+     * }
      */
-    public function actionSignin($login, $password){
+    public function actionSignin(){
+
+        $login = Yii::$app->request->getBodyParam('login');
+        $password = Yii::$app->request->getBodyParam('password');
+
         // Проверка валидности пользователя
-        $user = User::findOne(['login' => $login, 'password' => $password]);
+        $user = User::findOne(['login' => $login]);
         if ($user == null){
+            return false;
+        }
+
+        // Проверка правильности пароля для пользователя
+        // hash = $user['password']
+        if (!(Yii::$app->getSecurity()->validatePassword($password, $user['password']))){
             return false;
         }
 
@@ -48,9 +62,17 @@ class UserController extends ApiController
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/user/signup?login=alexey&password=qqwer
+     * POST http://127.0.0.1:1199/api/v1/user/signup
+     * body:{
+     * "login": "newuser",
+     * "password": 12345
+     * }
      */
-    public function actionSignup($login, $password){
+    public function actionSignup(){
+
+        $login = Yii::$app->request->getBodyParam('login');
+        $password = Yii::$app->request->getBodyParam('password');
+
         $user = User::findOne(['login' => $login]);
         if ($user != null){
             return [
@@ -79,9 +101,15 @@ class UserController extends ApiController
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/user/exit?token=e14da1b018b662b2a0c9
+     * POST http://127.0.0.1:1199/api/v1/user/exit
+     * body:{
+     * "token": "f93d995e3b54c397c3a3",
+     * }
      */
-    public function actionExit($token){
+    public function actionExit(){
+
+        $token = Yii::$app->request->getBodyParam('token');
+
         $user = User::findOne(['accessToken' => $token]);
         $user->accessToken = null;
         $user->save();
@@ -90,9 +118,15 @@ class UserController extends ApiController
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/user/is_valid_token?token=e14da1b018b662b2a0c9
+     * POST http://127.0.0.1:1199/api/v1/user/is_valid_token
+     * body:{
+     * "token": "e14da1b018b662b2a0c9",
+     * }
      */
-    public function actionIs_valid_token($token){
+    public function actionIs_valid_token(){
+
+        $token = Yii::$app->request->getBodyParam('token');
+
         $user = User::findOne(['accessToken' => $token]);
         if ($user != null){
             return true;

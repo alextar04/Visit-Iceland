@@ -95,9 +95,19 @@ class AttractionController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/edit_comment?accesstoken=6178217fa7823c6070b4&id=0&text=sometext
+     * POST http://127.0.0.1:1199/api/v1/attraction/edit_comment
+     * body:{
+     * "accesstoken": "6178217fa7823c6070b4",
+     * "id": 0,
+     * "text": sometext
+     * }
      */
-    public function actionEdit_comment($accesstoken, $id, $text){
+    public function actionEdit_comment(){
+
+        $accesstoken = Yii::$app->request->getBodyParam('accesstoken');
+        $id = Yii::$app->request->getBodyParam('id');
+        $text = Yii::$app->request->getBodyParam('text');
+
         $user = User::findOne(['accessToken' => $accesstoken]);
 
         if ($user != null){
@@ -116,9 +126,17 @@ class AttractionController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/new_comment?accesstoken=6178217fa7823c6070b4&text=sometext
+     * POST http://127.0.0.1:1199/api/v1/attraction/new_comment
+     * body:{
+     * "accesstoken": "6178217fa7823c6070b4",
+     * "text": "sometext"
+     * }
      */
-    public function actionNew_comment($accesstoken, $text){
+    public function actionNew_comment(){
+
+        $accesstoken = Yii::$app->request->getBodyParam('accesstoken');
+        $text = Yii::$app->request->getBodyParam('text');
+
         $username = User::findOne(['accessToken' => $accesstoken])['login'];
         $comment = new Comment();
         $comment->username = $username;
@@ -131,9 +149,17 @@ class AttractionController extends ApiController{
 
     /**
      * Пример запроса:
-     * http://127.0.0.1:1199/api/v1/attraction/delete_comment?accesstoken=6178217fa7823c6070b4&id=0
+     * http://127.0.0.1:1199/api/v1/attraction/delete_comment
+     * body:{
+     * "accesstoken": "6178217fa7823c6070b4",
+     * "id": 0
+     * }
      */
-    public function actionDelete_comment($accesstoken, $id){
+    public function actionDelete_comment(){
+
+        $accesstoken = Yii::$app->request->getBodyParam('accesstoken');
+        $id = Yii::$app->request->getBodyParam('id');
+
         $user = User::findOne(['accessToken' => $accesstoken]);
 
         if ($user != null){
