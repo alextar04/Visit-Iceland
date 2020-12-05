@@ -44,7 +44,6 @@ class User extends \yii\db\ActiveRecord
         ];
     }
 
-    // Перед сохранением модели, создать хэш для пароля
     public function beforeSave($insert){
         if (parent::beforeSave($insert)){
             // Сгенерировать хэш пароля для нового пользователя 
