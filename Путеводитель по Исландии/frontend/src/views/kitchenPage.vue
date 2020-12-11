@@ -115,7 +115,7 @@ export default{
 
     getStartImagePath: function(instance){
       var thisEnv = this
-      instance.get('/housing/mainphoto').then(function(mainphoto){
+      instance.get('/kitchen/mainphoto').then(function(mainphoto){
               thisEnv.startImagePath = mainphoto.data.photo.split("@/assets")[1]
           })
     },

@@ -105,7 +105,7 @@ export default{
               baseURL: 'http://127.0.0.1:1199/api/v1'
           })
           var token = null
-          instance.get('/user/signin?login='+thisEnv.email+'&password='+thisEnv.password).then(function(responseToken){
+          instance.post('/user/signin', {"login": thisEnv.email, "password": thisEnv.password}).then(function(responseToken){
               token = responseToken.data
 
               if (token != false){
@@ -138,7 +138,7 @@ export default{
               baseURL: 'http://127.0.0.1:1199/api/v1'
           })
 
-          instance.get('/user/signup?login='+thisEnv.email+'&password='+thisEnv.password).then(function(responseToken){
+          instance.post('/user/signup', {"login": thisEnv.email, "password": thisEnv.password}).then(function(responseToken){
               token = responseToken.data.token
 
               if (responseToken.data.statusText == undefined){
@@ -179,7 +179,7 @@ export default{
       })
       let token = JSON.parse(localStorage.getItem('user')).accessToken
 
-      instance.get('/user/exit?token='+token).then(function(response){
+      instance.post('/user/exit', {"token": token}).then(function(response){
             if (response.data.accessToken == null){
                 User.logout()
                 thisEnv.password = ''

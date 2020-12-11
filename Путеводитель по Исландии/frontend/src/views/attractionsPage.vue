@@ -120,7 +120,7 @@ export default{
         })
         let token = JSON.parse(localStorage.getItem('user')).accessToken
 
-        instance.get('/attraction/delete_comment?accesstoken='+token+'&id='+id).then(function(responseDelete){
+        instance.post('/attraction/delete_comment', {"accesstoken": token, "id": id}).then(function(responseDelete){
             let deleteStatus = responseDelete.data
             if (deleteStatus.status != null){
                 thisEnv.commentsList = thisEnv.commentsList.filter(t => t.id != id)
@@ -146,7 +146,7 @@ export default{
         let oldText = thisEnv.commentsList[index].text 
         thisEnv.commentsList[index].text = text
 
-        instance.get('/attraction/edit_comment?accesstoken='+token+'&id='+id+'&text='+recievedtext).then(function(responseComment){
+        instance.post('/attraction/edit_comment', {"accesstoken": token, "id": id, "text": recievedtext}).then(function(responseComment){
             let dataComment = responseComment.data
             // При неудачном обновлении, вернуть старый текст
             if (dataComment.text != thisEnv.commentsList[index].text){
@@ -164,7 +164,7 @@ export default{
         let recievedtext = text
         let token = JSON.parse(localStorage.getItem('user')).accessToken
 
-        instance.get('/attraction/new_comment?accesstoken='+token+'&text='+recievedtext).then(function(responseComment){
+        instance.post('/attraction/new_comment', {"accesstoken": token, "text": recievedtext}).then(function(responseComment){
             let dataComment = responseComment.data
 
             thisEnv.commentsList.unshift({

@@ -152,7 +152,7 @@ export default{
 
     getPhotos: function(instance){
         var thisEnv = this
-        instance.get('kitchen/photos').then(function(photos){
+        instance.get('trip/photo').then(function(photos){
               let dataPhoto = photos.data
               thisEnv.photo1 = dataPhoto[1].photo.split("@/assets")[1]
               thisEnv.photo2 = dataPhoto[4].photo.split("@/assets")[1]
