@@ -26,8 +26,8 @@
               <a v-if="getSignInStatus() === 'Войти'">
               <form>
                 <div class="form-group">
-                  <label for="exampleInputEmail1" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">Email</label>
-                  <input type="email" class="form-control" v-model="email" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;" aria-describedby="emailHelp" placeholder="Введите Email">
+                  <label for="exampleInputEmail1" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">Логин</label>
+                  <input type="email" class="form-control" v-model="email" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;" aria-describedby="emailHelp" placeholder="Введите логин">
                   <div class="error" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none; margin-top: 10px">{{errors.email}}</div>
                 </div>
                 <div class="form-group">
@@ -42,7 +42,7 @@
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" id="gridCheck1">
                       <label class="form-check-label" for="gridCheck1" style="font-weight: normal; text-transform: initial; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-decoration: none;">
-                        Зарегестрироваться
+                        Зарегистрироваться
                       </label>
                     </div>
                   </div>

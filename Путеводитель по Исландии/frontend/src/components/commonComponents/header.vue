@@ -57,6 +57,8 @@
 
 <script>
 import signIn from '@/components/commonComponents/signIn.vue'
+import Axios from 'axios'
+
 export default{
   data(){
         return {
@@ -75,6 +77,12 @@ export default{
         let email = JSON.parse(localStorage.getItem('user')).email
         this.username = email
       }
+
+      const instance = Axios.create({
+      baseURL: 'http://127.0.0.1:1199/api/v1'
+      })
+      this.$emit('get-comments', instance)
+
     },
   }
 }

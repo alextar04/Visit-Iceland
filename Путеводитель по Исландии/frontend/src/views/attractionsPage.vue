@@ -2,6 +2,7 @@
   <div>
     <headerComponent
       v-bind:listCityPlaceholder="listCity"
+      @get-comments="getComments"
     />
     <listChapters
       v-bind:listChaptersPlaceholder="listChapters"
