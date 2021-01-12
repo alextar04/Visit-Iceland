@@ -18,7 +18,7 @@
 Скриншоты:
 
 <p align="center">
-    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/1.png" alt="centered image" width="80%">
+    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/1.png" alt="centered image" width="100%">
 </p>
 
 <p align="center">
