@@ -22,15 +22,15 @@
 </p>
 
 <p align="center">
-    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/2.png" alt="centered image">
+    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/2.png" alt="centered image" width="100%">
 </p>
 
 <p align="center">
-    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/3.png" alt="centered image" width="80%">
+    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/3.png" alt="centered image" width="100%">
 </p>
 
 <p align="center">
-    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/4.png" alt="centered image" width="80%">
+    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/4.png" alt="centered image" width="100%">
 </p>
 
 <p align="center">
@@ -38,10 +38,10 @@
 </p>
 
 <p align="center">
-    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/6.png" alt="centered image" width="80%">
+    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/6.png" alt="centered image" width="100%">
 </p>
 
 <p align="center">
-    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/7.png" alt="centered image" width="80%">
+    <img src="https://github.com/alextar04/Visit-Iceland/blob/master/Github%20Images/7.png" alt="centered image" width="100%">
 </p>
 
